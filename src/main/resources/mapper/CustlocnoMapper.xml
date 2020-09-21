@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfg.thdfhcl.dao.CustlocnoDao">
+  <resultMap id="BaseResultMap" type="com.cdfg.thdfhcl.pojo.dto.FlightAndShelfnoDto">
+    <result column="shcustpass" jdbcType="VARCHAR" property="cardID" />
+    <result column="shname" jdbcType="VARCHAR" property="shelfno" />
+    <result column="shdpttime" jdbcType="TIMESTAMP" property="flightTime" />
+    <result column="shdptairline" jdbcType="VARCHAR" property="flightNum" />
+    <result column="shdthdd" jdbcType="VARCHAR" property="flightAdrres" />
+    <result column="shfhbillno" jdbcType="VARCHAR" property="fhNum" />
+    <result column="sl" jdbcType="NUMERIC" property="total" />
+    <result column="shelfnos" jdbcType="VARCHAR" property="shelfno" />
+  </resultMap>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    {CALL if_thdfhcl.qry_zxd
+        (#{billNO,mode=IN,jdbcType=VARCHAR},
+        #{shcustpass,mode=OUT,jdbcType=VARCHAR},
+        #{shname,mode=OUT,jdbcType=VARCHAR},
+        #{shdpttime,mode=OUT,jdbcType=TIMESTAMP},
+        #{shdptairline,mode=OUT,jdbcType=VARCHAR},
+        #{shdthdd,mode=OUT,jdbcType=VARCHAR},
+        #{shfhbillno,mode=OUT,jdbcType=VARCHAR},
+        #{sl,mode=OUT,jdbcType=NUMERIC,javaType=Integer},
+        #{shelfnos,mode=OUT,jdbcType=VARCHAR}
+        )}
+  </select>
+
+  <insert id="insert" parameterType="java.util.List" useGeneratedKeys="false">
+    insert into CUSTLOCNO (CLNSEQ,CUSTPASS, SHELFNO, FLAG,
+      OPERNO, OPERTIME, THDD
+      )
+    select SEQ_CUSTLOC.nextval,cd.* from(
+      <foreach collection="list" item="item" index="index" separator="UNION ALL">
+        select
+          #{item.custpass,jdbcType=VARCHAR},
+          #{item.shelfno,jdbcType=VARCHAR},
+          #{item.flag,jdbcType=CHAR},
+          #{item.operno,jdbcType=VARCHAR},
+          #{item.opertime,jdbcType=TIMESTAMP},
+          #{item.thdd,jdbcType=VARCHAR}
+          from dual
+      </foreach>
+      ) cd
+  </insert>
+</mapper>

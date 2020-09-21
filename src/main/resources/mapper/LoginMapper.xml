@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfg.thdfhcl.dao.LoginDao">
+    <resultMap id="BaseResultMap" type="com.cdfg.thdfhcl.pojo.dto.ThduserDto">
+        <id column="USER_ID" jdbcType="VARCHAR" property="userId" />
+        <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+        <result column="THD_ADDRESS" jdbcType="VARCHAR" property="thdAddress" />
+        <result column="PASS_WORD" jdbcType="VARCHAR" property="passWord" />
+        <result column="CREAT_TIME" jdbcType="TIMESTAMP" property="creatTime" />
+        <result column="UPDATE_TIME" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="STATUS" jdbcType="VARCHAR" property="status" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    USER_ID, USER_NAME, THD_ADDRESS, PASS_WORD, CREAT_TIME, UPDATE_TIME, "STATUS"
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from THDUSER
+        where USER_ID = #{userId,jdbcType=VARCHAR}
+          and PASS_WORD = #{passWord,jdbcType=VARCHAR}
+    </select>
+</mapper>
