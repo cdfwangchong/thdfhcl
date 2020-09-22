@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class CheckPackBillServiceImpl implements CheckPackBillService {
     Logger logger = Logger.getLogger(CheckPackBillServiceImpl.class);
 
     /**
-     *
+     *机场到货验收
      * @param packbillitem
      * @param worknumber
      * @return
@@ -40,8 +40,10 @@ public class CheckPackBillServiceImpl implements CheckPackBillService {
         String packbillStr = packbillitem.getBillNO();
         String billtype = packbillitem.getBillType();
         Date cpbDate = packbillitem.getCpbDate();
-        String[] packbillArr = packbillStr.split("|");
-        List<CheckpackbillDto> cpbDtoList = null;
+        logger.info("取到机场到货验收接口数据"+packbillStr+billtype+cpbDate);
+
+        String[] packbillArr = packbillStr.split(",");
+        List<CheckpackbillDto> cpbDtoList = new ArrayList<>();
         Date currentdate = new Date();
 
         for (int i = 0; i < packbillArr.length; i++) {
@@ -58,7 +60,6 @@ public class CheckPackBillServiceImpl implements CheckPackBillService {
 
             cpbDtoList.add(cpbDto);
         }
-
         //传入dao层
         int result = 0;
         try {

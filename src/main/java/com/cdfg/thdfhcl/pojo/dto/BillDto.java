@@ -1,22 +1,14 @@
 package com.cdfg.thdfhcl.pojo.dto;
 
 public class BillDto {
-    public String getBillType() {
-        return billType;
+
+    public String getBillNO() {
+        return billNO;
     }
 
-    public void setBillType(String billType) {
-        this.billType = billType;
+    public void setBillNO(String billNO) {
+        this.billNO = billNO;
     }
 
-    public String getBillNo() {
-        return billNo;
-    }
-
-    public void setBillNo(String billNo) {
-        this.billNo = billNo;
-    }
-
-    private String billType;
-    private String billNo;
+    private String billNO;
 }

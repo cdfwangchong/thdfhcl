@@ -7,6 +7,7 @@ import com.cdfg.thdfhcl.pojo.until.Jwt;
 import com.cdfg.thdfhcl.pojo.until.Result;
 import com.cdfg.thdfhcl.pojo.until.Token;
 import com.cdfg.thdfhcl.service.CheckPackBillService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,8 @@ public class CheckPackBillCotroller {
     @Autowired
     private CheckPackBillService cbpservice = null;
 
+    Logger logger = Logger.getLogger(LoginController.class);
+
     /**
      *
      * @param packbillitem
@@ -38,9 +41,11 @@ public class CheckPackBillCotroller {
     public Result<String> InsertPackBill(@RequestBody InsertPackBillDto packbillitem, HttpServletRequest request){
 
         if (packbillitem == null) {
+            logger.error("获取到的对象值为空");
             throw new ThdfhclNotFoundException(errCode_5,errMsg_5);
         }
-        String worknumber = new Token().CheckToken(request);
+        String token = request.getHeader("Authorization");
+        String worknumber = new Token().CheckToken(token);
         cbpservice.insert(packbillitem,worknumber);
 
         return new Result<String>(sucCode,sucMsg,"");

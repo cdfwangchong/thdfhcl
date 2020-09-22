@@ -23,22 +23,12 @@ public class ThduserDto implements Serializable {
     /**
      * 提货点
      */
-    private String thdAddress;
+    private String deptId;
 
     /**
      * 密码
      */
-    private String passWord;
-
-    /**
-     * 创建时间
-     */
-    private Date creatTime;
-
-    /**
-     * 更新时间
-     */
-    private Date updateTime;
+    private String userCode;
 
     /**
      * 账号状态

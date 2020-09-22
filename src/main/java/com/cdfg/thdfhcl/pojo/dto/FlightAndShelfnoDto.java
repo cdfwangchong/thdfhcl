@@ -1,5 +1,7 @@
 package com.cdfg.thdfhcl.pojo.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import javax.xml.crypto.Data;
 import java.util.Date;
 
@@ -36,12 +38,12 @@ public class FlightAndShelfnoDto {
         this.flightNum = flightNum;
     }
 
-    public String getFlightAdrres() {
-        return flightAdrres;
+    public String getFlightAddress() {
+        return flightAddress;
     }
 
-    public void setFlightAdrres(String flightAdrres) {
-        this.flightAdrres = flightAdrres;
+    public void setFlightAddress(String flightAddress) {
+        this.flightAddress = flightAddress;
     }
 
     public String getFhNum() {
@@ -68,11 +70,20 @@ public class FlightAndShelfnoDto {
         this.shelfno = shelfno;
     }
 
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
     private String userName;
     private String cardID;
     private Date flightTime;
     private String flightNum;
-    private String flightAdrres;
+    private String flightAddress;
+    private String addressName;
     private String fhNum;
     private int total;
     private String shelfno;

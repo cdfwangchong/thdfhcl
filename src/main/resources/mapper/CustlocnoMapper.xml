@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cdfg.thdfhcl.dao.CustlocnoDao">
-  <resultMap id="BaseResultMap" type="com.cdfg.thdfhcl.pojo.dto.FlightAndShelfnoDto">
-    <result column="shcustpass" jdbcType="VARCHAR" property="cardID" />
-    <result column="shname" jdbcType="VARCHAR" property="shelfno" />
-    <result column="shdpttime" jdbcType="TIMESTAMP" property="flightTime" />
-    <result column="shdptairline" jdbcType="VARCHAR" property="flightNum" />
-    <result column="shdthdd" jdbcType="VARCHAR" property="flightAdrres" />
-    <result column="shfhbillno" jdbcType="VARCHAR" property="fhNum" />
-    <result column="sl" jdbcType="NUMERIC" property="total" />
-    <result column="shelfnos" jdbcType="VARCHAR" property="shelfno" />
-  </resultMap>
-  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+
+  <select id="selectByPrimaryKey" statementType="CALLABLE" resultType="java.util.Map">
     {CALL if_thdfhcl.qry_zxd
         (#{billNO,mode=IN,jdbcType=VARCHAR},
         #{shcustpass,mode=OUT,jdbcType=VARCHAR},
@@ -20,7 +11,7 @@
         #{shdptairline,mode=OUT,jdbcType=VARCHAR},
         #{shdthdd,mode=OUT,jdbcType=VARCHAR},
         #{shfhbillno,mode=OUT,jdbcType=VARCHAR},
-        #{sl,mode=OUT,jdbcType=NUMERIC,javaType=Integer},
+        #{sl,mode=OUT,jdbcType=INTEGER},
         #{shelfnos,mode=OUT,jdbcType=VARCHAR}
         )}
   </select>

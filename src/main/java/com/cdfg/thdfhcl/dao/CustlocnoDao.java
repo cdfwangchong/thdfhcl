@@ -14,6 +14,6 @@ public interface CustlocnoDao {
 
     int insert(List<CustlocnoDto> record);
 
-    FlightAndShelfnoDto selectByPrimaryKey(BillDto billDto);
+    Map selectByPrimaryKey(Map fasMap);
 
 }

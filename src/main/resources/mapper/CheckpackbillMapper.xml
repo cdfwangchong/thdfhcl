@@ -1,125 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cdfg.thdfhcl.dao.CheckpackbillDao">
-  <resultMap id="BaseResultMap" type="com.cdfg.thdfhcl.pojo.dto.CheckpackbillDto">
-    <id column="BILL_NO" jdbcType="VARCHAR" property="billNo" />
-    <result column="BILL_TYPE" jdbcType="VARCHAR" property="billType" />
-    <result column="CPB_OPERATOR" jdbcType="VARCHAR" property="cpbOperator" />
-    <result column="CPB_FLAG" jdbcType="VARCHAR" property="cpbFlag" />
-    <result column="CPB_DATE" jdbcType="TIMESTAMP" property="cpbDate" />
-    <result column="CPB_REMARK" jdbcType="VARCHAR" property="cpbRemark" />
-    <result column="CREAT_DATE" jdbcType="TIMESTAMP" property="creatDate" />
-    <result column="UPDATE_DATE" jdbcType="TIMESTAMP" property="updateDate" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    BILL_NO, BILL_TYPE, CPB_OPERATOR, CPB_FLAG, CPB_DATE, CPB_REMARK, CREAT_DATE, UPDATE_DATE
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from CHECKPACKBILL
-    where BILL_NO = #{billNo,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from CHECKPACKBILL
-    where BILL_NO = #{billNo,jdbcType=VARCHAR}
-  </delete>
+
   <insert id="insert" parameterType="java.util.List">
-    insert into CHECKPACKBILL (BILL_NO,BILL_TYPE,CPB_OPERATOR,CPB_FLAG,
-      CPB_DATE,CPB_REMARK,CREAT_DATE,
-      UPDATE_DATE)
-    values
-    <foreach collection="list" item="cpbDto" separator=",">
-        (#{cpbDto.billNo,jdbcType=VARCHAR},#{cpbDto.billType,jdbcType=VARCHAR}, #{cpbDto.cpbOperator,jdbcType=VARCHAR}, #{cpbDto.cpbFlag,jdbcType=VARCHAR},
-        #{cpbDto.cpbDate,jdbcType=TIMESTAMP}, #{cpbDto.cpbRemark,jdbcType=VARCHAR}, #{cpbDto.creatDate,jdbcType=TIMESTAMP},
-        #{cpbDto.updateDate,jdbcType=TIMESTAMP})
+    insert into CHECKPACKBILL (BILL_NO,BILL_TYPE,CPB_OPERATOR,CPB_FLAG,CPB_DATE,CPB_REMARK,CREAT_DATE,UPDATE_DATE)
+    select t.* from (
+    <foreach collection="list" item="cpbDto" index="index" separator="UNION ALL">
+      select
+        #{cpbDto.billNo,jdbcType=VARCHAR},
+        #{cpbDto.billType,jdbcType=VARCHAR},
+        #{cpbDto.cpbOperator,jdbcType=VARCHAR},
+        #{cpbDto.cpbFlag,jdbcType=VARCHAR},
+        #{cpbDto.cpbDate,jdbcType=TIMESTAMP},
+        #{cpbDto.cpbRemark,jdbcType=VARCHAR},
+        #{cpbDto.creatDate,jdbcType=TIMESTAMP},
+        #{cpbDto.updateDate,jdbcType=TIMESTAMP}
+      from dual
     </foreach>
+    )t
   </insert>
-  <insert id="insertSelective" keyColumn="BILL_NO" keyProperty="billNo" parameterType="com.cdfg.thdfhcl.pojo.dto.CheckpackbillDto" useGeneratedKeys="true">
-    insert into CHECKPACKBILL
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="billType != null">
-        BILL_TYPE,
-      </if>
-      <if test="cpbOperator != null">
-        CPB_OPERATOR,
-      </if>
-      <if test="cpbFlag != null">
-        CPB_FLAG,
-      </if>
-      <if test="cpbDate != null">
-        CPB_DATE,
-      </if>
-      <if test="cpbRemark != null">
-        CPB_REMARK,
-      </if>
-      <if test="creatDate != null">
-        CREAT_DATE,
-      </if>
-      <if test="updateDate != null">
-        UPDATE_DATE,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="billType != null">
-        #{billType,jdbcType=VARCHAR},
-      </if>
-      <if test="cpbOperator != null">
-        #{cpbOperator,jdbcType=VARCHAR},
-      </if>
-      <if test="cpbFlag != null">
-        #{cpbFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="cpbDate != null">
-        #{cpbDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cpbRemark != null">
-        #{cpbRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="creatDate != null">
-        #{creatDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.cdfg.thdfhcl.pojo.dto.CheckpackbillDto">
-    update CHECKPACKBILL
-    <set>
-      <if test="billType != null">
-        BILL_TYPE = #{billType,jdbcType=VARCHAR},
-      </if>
-      <if test="cpbOperator != null">
-        CPB_OPERATOR = #{cpbOperator,jdbcType=VARCHAR},
-      </if>
-      <if test="cpbFlag != null">
-        CPB_FLAG = #{cpbFlag,jdbcType=VARCHAR},
-      </if>
-      <if test="cpbDate != null">
-        CPB_DATE = #{cpbDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="cpbRemark != null">
-        CPB_REMARK = #{cpbRemark,jdbcType=VARCHAR},
-      </if>
-      <if test="creatDate != null">
-        CREAT_DATE = #{creatDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updateDate != null">
-        UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where BILL_NO = #{billNo,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.cdfg.thdfhcl.pojo.dto.CheckpackbillDto">
-    update CHECKPACKBILL
-    set BILL_TYPE = #{billType,jdbcType=VARCHAR},
-      CPB_OPERATOR = #{cpbOperator,jdbcType=VARCHAR},
-      CPB_FLAG = #{cpbFlag,jdbcType=VARCHAR},
-      CPB_DATE = #{cpbDate,jdbcType=TIMESTAMP},
-      CPB_REMARK = #{cpbRemark,jdbcType=VARCHAR},
-      CREAT_DATE = #{creatDate,jdbcType=TIMESTAMP},
-      UPDATE_DATE = #{updateDate,jdbcType=TIMESTAMP}
-    where BILL_NO = #{billNo,jdbcType=VARCHAR}
-  </update>
 </mapper>

@@ -7,6 +7,7 @@ import com.cdfg.thdfhcl.pojo.dto.BillDto;
 import com.cdfg.thdfhcl.pojo.dto.CheckpackbillDto;
 import com.cdfg.thdfhcl.pojo.dto.CustlocnoDto;
 import com.cdfg.thdfhcl.pojo.dto.FlightAndShelfnoDto;
+import com.cdfg.thdfhcl.pojo.until.Thddparam;
 import com.cdfg.thdfhcl.service.CustLocNoService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,7 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 import static com.cdfg.thdfhcl.pojo.until.Constant.*;
 
@@ -51,11 +50,7 @@ public class CustLocNoServiceImpl implements CustLocNoService {
                 custlocDto.setOperno(worknumber);
                 custlocDto.setOpertime(opertime);
                 custlocDto.setThdd(thdd);
-                
-                System.out.println(custlocDto.getCustpass());
-                System.out.println(custlocDto.getShelfno());
-                System.out.println(custlocDto.getOperno());
-                
+
                 clnDtoList.add(custlocDto);
             }
             result = custlocnoDao.insert(clnDtoList);
@@ -75,12 +70,35 @@ public class CustLocNoServiceImpl implements CustLocNoService {
     @Override
     public FlightAndShelfnoDto QryCustLocNO(BillDto billDto) {
 
-        FlightAndShelfnoDto fasDto=null;
+        Map fasMap = new HashMap<String, String>();
+        FlightAndShelfnoDto fasDto = new FlightAndShelfnoDto();
        
         try {
-            fasDto = custlocnoDao.selectByPrimaryKey(billDto);
+            fasMap.put("billNO", billDto.getBillNO());
+            custlocnoDao.selectByPrimaryKey(fasMap);
+            
+            String shelfno = (String) fasMap.get("shelfnos");
+            String shcustpass = (String) fasMap.get("shcustpass");
+            String shname = (String) fasMap.get("shname");
+            Date shdpttime = (Date) fasMap.get("shdpttime");
+            String shdptairline = (String) fasMap.get("shdptairline");
+            String shdthdd = (String) fasMap.get("shdthdd");
+            String addressName = Thddparam.getAddress(shdthdd);
+            String shfhbillno = (String) fasMap.get("shfhbillno");
+            int sl = (int) fasMap.get("sl");
+            
+            fasDto.setShelfno(shelfno);
+            fasDto.setCardID(shcustpass);
+            fasDto.setFhNum(shfhbillno);
+            fasDto.setFlightAddress(shdthdd);
+            fasDto.setAddressName(addressName);
+            fasDto.setFlightNum(shdptairline);
+            fasDto.setUserName(shname);
+            fasDto.setFlightTime(shdpttime);
+            fasDto.setTotal(sl);
+            
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
+             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
             throw new ThdfhclNotFoundException(errCode_3,errMsg_3);
         }

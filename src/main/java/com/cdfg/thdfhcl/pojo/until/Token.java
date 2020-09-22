@@ -10,8 +10,7 @@ import static com.cdfg.thdfhcl.pojo.until.Constant.errMsg_4;
 
 public class Token {
 
-    public String CheckToken(HttpServletRequest request) {
-        String token = request.getHeader("Authorization");
+    public String CheckToken(String token) {
         if ("".equals(token) || token==null) {
             throw new ThdfhclNotFoundException(errCode_4,errMsg_4);
         }
@@ -28,5 +27,4 @@ public class Token {
         String worknumber = dtojwt.getWorknumber();
         return worknumber;
     }
-
 }

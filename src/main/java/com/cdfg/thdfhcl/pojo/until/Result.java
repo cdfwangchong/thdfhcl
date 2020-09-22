@@ -1,26 +1,27 @@
 package com.cdfg.thdfhcl.pojo.until;
 
 public class Result<T> {
-    private int resultCode;
+
+    public int getRetcode() {
+        return retcode;
+    }
+
+    public void setRetcode(int retcode) {
+        this.retcode = retcode;
+    }
+
+    private int retcode;
     private String msg;
     private T data;
 
-    public Result(int resultCode, String msg, T data) {
-        this.resultCode = resultCode;
+    public Result(int retcode, String msg, T data) {
+        this.retcode = retcode;
         this.msg = msg;
         this.data = data;
     }
 
     public Result() {
 
-    }
-
-    public int getResultCode() {
-        return resultCode;
-    }
-
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
     }
 
     public String getMsg() {

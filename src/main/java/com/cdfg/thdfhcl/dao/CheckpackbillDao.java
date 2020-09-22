@@ -7,15 +7,6 @@ import java.util.List;
 
 @Repository
 public interface CheckpackbillDao {
-    int deleteByPrimaryKey(String billNo);
 
     int insert(List<CheckpackbillDto> record);
-
-    int insertSelective(CheckpackbillDto record);
-
-    CheckpackbillDto selectByPrimaryKey(String billNo);
-
-    int updateByPrimaryKeySelective(CheckpackbillDto record);
-
-    int updateByPrimaryKey(CheckpackbillDto record);
 }

@@ -11,7 +11,7 @@ public final class Constant {
     public static String sucMsg = "成功";
 
     public static int errCode_2 = 1003;
-    public static String errMsg_2 = "员工ID在表中不存在";
+    public static String errMsg_2 = "员号不存在或者密码错误";
 
     public static int errCode_3 = 1004;
     public static String errMsg_3 = "表数据查询返回值异常";

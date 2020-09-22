@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoginDao {
-    public ThduserDto selectByPrimaryKey(UserDto userDto);
+    ThduserDto selectByPrimaryKey(UserDto userDto);
 }
