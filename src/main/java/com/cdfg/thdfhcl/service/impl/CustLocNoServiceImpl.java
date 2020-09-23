@@ -34,6 +34,8 @@ public class CustLocNoServiceImpl implements CustLocNoService {
         String custpass = clnDto.getCustpass();
         Date opertime = clnDto.getOpertime();
         String thdd = clnDto.getThdd();
+        logger.info("取到上架接口值"+shelfnoStr+"@"+custpass+"@"+opertime+"@"+thdd);
+
         //传入dao层
         int result = 0;
 
@@ -57,23 +59,25 @@ public class CustLocNoServiceImpl implements CustLocNoService {
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("上架数据写入异常");
-            System.out.println(e);
             throw new ThdfhclNotFoundException(errCode_6,errMsg_6);
         }
 
         if (result != shelfnoArr.length) {
             throw new ThdfhclNotFoundException(errCode_6,errMsg_6);
         }
+
+        logger.info("正常写入表中"+shelfnoStr+"@"+custpass+"@"+opertime+"@"+thdd);
         return true;
     }
 
     @Override
     public FlightAndShelfnoDto QryCustLocNO(BillDto billDto) {
 
+        logger.info("查询接口取到单据号"+billDto.getBillNO());
         Map fasMap = new HashMap<String, String>();
         FlightAndShelfnoDto fasDto = new FlightAndShelfnoDto();
-       
         try {
+
             fasMap.put("billNO", billDto.getBillNO());
             custlocnoDao.selectByPrimaryKey(fasMap);
             
@@ -96,9 +100,14 @@ public class CustLocNoServiceImpl implements CustLocNoService {
             fasDto.setUserName(shname);
             fasDto.setFlightTime(shdpttime);
             fasDto.setTotal(sl);
-            
+
+            logger.info("取出提货单货位数据"+shelfno+"@"+
+                    shcustpass+"@"+shname+"@"+shdpttime+"@"+
+                    shdptairline+"@"+shdthdd+"@"+addressName+
+                    "@"+shfhbillno+"@"+sl);
+
         } catch (Exception e) {
-             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
+            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
             throw new ThdfhclNotFoundException(errCode_3,errMsg_3);
         }
