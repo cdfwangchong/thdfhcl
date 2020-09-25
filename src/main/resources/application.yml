@@ -10,5 +10,21 @@ spring:
     url: jdbc:oracle:thin:@10.190.3.10:1521:hncdfposmgr
     username: dbusrpos
     password: nibuhao123456!
-    driver-class-name: oracle.jdbc.OracleDriver
+    driver-class-name:  oracle.jdbc.OracleDriver
     type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 6000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+

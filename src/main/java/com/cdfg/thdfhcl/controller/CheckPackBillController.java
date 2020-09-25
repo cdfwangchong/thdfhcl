@@ -23,7 +23,7 @@ import static com.cdfg.thdfhcl.pojo.until.Constant.sucMsg;
 @CrossOrigin
 @RestController
 @RequestMapping("/cdfg")
-public class CheckPackBillCotroller {
+public class CheckPackBillController {
 
     @Autowired
     private CheckPackBillService cbpservice = null;
