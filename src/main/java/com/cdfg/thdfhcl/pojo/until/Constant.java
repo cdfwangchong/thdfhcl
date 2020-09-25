@@ -25,6 +25,9 @@ public final class Constant {
     public static int errCode_6 = 1007;
     public static String errMsg_6 = "数据写入异常";
 
+    public static int errCode_7 = 1008;
+    public static String errMsg_7 = "获取version-control.txt文件内容异常";
+
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 
