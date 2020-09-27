@@ -17,20 +17,23 @@
   </select>
 
   <insert id="insert" parameterType="java.util.List" useGeneratedKeys="false">
-    insert into CUSTLOCNO (CLNSEQ,CUSTPASS, SHELFNO, FLAG,
-      OPERNO, OPERTIME, THDD
-      )
-    select SEQ_CUSTLOC.nextval,cd.* from(
-      <foreach collection="list" item="item" index="index" separator="UNION ALL">
-        select
-          #{item.custpass,jdbcType=VARCHAR},
-          #{item.shelfno,jdbcType=VARCHAR},
-          #{item.flag,jdbcType=CHAR},
-          #{item.operno,jdbcType=VARCHAR},
-          #{item.opertime,jdbcType=TIMESTAMP},
-          #{item.thdd,jdbcType=VARCHAR}
+      MERGE INTO CUSTLOCNO T
+      USING(
+        <foreach collection="list" item="item" index="index" separator="UNION ALL">
+          select
+          #{item.custpass,jdbcType=VARCHAR} custpass,
+          #{item.shelfno,jdbcType=VARCHAR} shelfno,
+          #{item.flag,jdbcType=CHAR} flag,
+          #{item.operno,jdbcType=VARCHAR} operno,
+          #{item.opertime,jdbcType=TIMESTAMP} opertime,
+          #{item.thdd,jdbcType=VARCHAR} thdd
           from dual
-      </foreach>
-      ) cd
+        </foreach>)T1
+      ON (T.custpass = T1.custpass and T.SHELFNO = T1.shelfno)
+      WHEN MATCHED THEN
+      UPDATE SET T.opertime = T1.opertime
+      WHEN NOT MATCHED THEN
+      INSERT(CLNSEQ,CUSTPASS, SHELFNO, FLAG,OPERNO, OPERTIME, THDD)
+      VALUES (SEQ_CUSTLOC.nextval, T1.custpass, T1.shelfno, T1.flag, T1.operno, T1.opertime, T1.thdd)
   </insert>
 </mapper>

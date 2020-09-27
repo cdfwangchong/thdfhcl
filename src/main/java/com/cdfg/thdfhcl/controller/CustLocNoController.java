@@ -41,6 +41,7 @@ public class CustLocNoController {
         }
         String token = request.getHeader("Authorization");
         String worknumber = new Token().CheckToken(token);
+
         boolean bool = custLocService.InsertCustLocNO(clnDto,worknumber);
         if (bool) {
             return new Result<String>(sucCode,sucMsg,"");
