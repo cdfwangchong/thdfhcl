@@ -36,7 +36,7 @@ public class VerSionController {
             String route = file.getAbsolutePath();
 
             String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-            File txtfile = new File(route+"/version-control.txt");
+            File txtfile = new File(route+ "/version-control.json");
             InputStream inputStream=new FileInputStream(txtfile);
             inputStream.read(buffer);
             ObjectMapper mapper = new ObjectMapper();

@@ -1,0 +1,9 @@
+{
+"version": "1.0.1",
+"build": "101",
+"appname": "PDA物流",
+"downloadpath": "http://192.168.0.109:3325/pdaapp2.apk",
+"releasedatetime": "2020-08-08 06:06:06",
+"updatecontent": "我是测试更新|我是测试更新",
+"need": "YES"
+}
