@@ -42,7 +42,7 @@ public class VerSionController {
             ObjectMapper mapper = new ObjectMapper();
             orderInfoBatch = mapper.readValue(buffer, VersionEntity.class);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("获取version-control.txt文件内容异常");
             throw new ThdfhclNotFoundException(errCode_7,errMsg_7);
