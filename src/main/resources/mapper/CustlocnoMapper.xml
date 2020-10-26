@@ -17,7 +17,7 @@
   </select>
 
   <insert id="insert" parameterType="java.util.List" useGeneratedKeys="false">
-      MERGE INTO CUSTLOCNO T
+      MERGE INTO dbusrpos.CUSTLOCNO T
       USING(
         <foreach collection="list" item="item" index="index" separator="UNION ALL">
           select

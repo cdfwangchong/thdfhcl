@@ -45,11 +45,11 @@ public class CustlocnoDto implements Serializable {
     public void setOperno(String operno) {
         this.operno = operno;
     }
-    @JsonFormat(pattern="yyyy-mm-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public Date getOpertime() {
         return opertime;
     }
-    @JsonFormat(pattern="yyyy-mm-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     public void setOpertime(Date opertime) {
         this.opertime = opertime;
     }
@@ -85,7 +85,7 @@ public class CustlocnoDto implements Serializable {
     /**
      * 操作时间
      */
-    @JsonFormat(pattern="yyyy-mm-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date opertime;
 
     /**

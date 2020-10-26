@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfg.thdfhcl.dao.HoldByDateDao">
+
+    <select id="insertDts" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_thdfhcl.update_zxd
+        (#{billNO,mode=IN,jdbcType=VARCHAR},
+        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{ldrq,mode=IN,jdbcType=VARCHAR},
+        #{market,mode=IN,jdbcType=VARCHAR},
+        #{tmpCode,mode=IN,jdbcType=VARCHAR},
+        #{o_TmpCode,mode=OUT,jdbcType=VARCHAR}
+        )}
+  </select>
+
+    <resultMap id="BaseResultMap" type="com.cdfg.thdfhcl.pojo.until.SellHeadEntity">
+        <result column="MARKET" jdbcType="VARCHAR" property="MARKET" />
+        <result column="SHDPTTIME" jdbcType="DATE" property="SHDPTTIME" />
+        <result column="SHISTH" jdbcType="VARCHAR" property="SHISTH" />
+        <result column="SHTHFS" jdbcType="VARCHAR" property="SHTHFS" />
+        <result column="SHSTATUS" jdbcType="VARCHAR" property="SHSTATUS" />
+        <result column="SHBILLNO" jdbcType="DECIMAL" property="SHBILLNO" />
+        <result column="SHXSDNO" jdbcType="VARCHAR" property="SHXSDNO" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    MARKET, SHDPTTIME, SHISTH, SHTHFS, SHSTATUS,SHBILLNO,SHXSDNO
+  </sql>
+    <select id="qryCheckBill" parameterType="String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from  SELLHEAD_SH
+        where SHXSDNO = #{billNO,jdbcType=VARCHAR}
+    </select>
+</mapper>

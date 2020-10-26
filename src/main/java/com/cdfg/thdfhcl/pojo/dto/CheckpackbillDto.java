@@ -2,6 +2,8 @@ package com.cdfg.thdfhcl.pojo.dto;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -33,6 +35,7 @@ public class CheckpackbillDto implements Serializable {
     /**
      * 验收日期
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date cpbDate;
 
     /**
@@ -43,11 +46,13 @@ public class CheckpackbillDto implements Serializable {
     /**
      * 创建日期
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date creatDate;
 
     /**
      * 更新日期
      */
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date updateDate;
 
     private static final long serialVersionUID = 1L;

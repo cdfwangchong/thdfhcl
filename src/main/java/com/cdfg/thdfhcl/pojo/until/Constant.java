@@ -28,6 +28,23 @@ public final class Constant {
     public static int errCode_7 = 1008;
     public static String errMsg_7 = "获取version-control.txt文件内容异常";
 
+    public static int errCode_8 = 3001;
+    public static String errMsg_8 = "提货单：";
+    public static String errMsg_8_1 = "门店与输入门店不一致";
+
+    public static int errCode_9 = 3002;
+    public static String errMsg_9 = "离岛日期与输入日期不一致";
+
+    public static int errCode_10 = 3003;
+    public static String errMsg_10 = "已经退货";
+
+    public static int errCode_11 = 3004;
+    public static String errMsg_11 = "提货方式不是【邮寄提货】";
+
+    public static int errCode_12 = 3005;
+    public static String errMsg_12 = "提货状态不是【待邮寄】";
+
+
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

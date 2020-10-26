@@ -2,11 +2,8 @@ package com.cdfg.thdfhcl.controller;
 
 import cn.cdfg.exceptionHandle.ThdfhclNotFoundException;
 import com.cdfg.thdfhcl.pojo.dto.UserDto;
-import com.cdfg.thdfhcl.pojo.until.AES;
 import com.cdfg.thdfhcl.pojo.until.Result;
 import com.cdfg.thdfhcl.service.LoginService;
-import com.cdfg.thdfhcl.service.impl.LoginServiceImpl;
-import com.sun.prism.shader.Solid_TextureYV12_AlphaTest_Loader;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
