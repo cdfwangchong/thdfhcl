@@ -25,6 +25,9 @@ public class HoldByDateServiceImpl implements HoldByDateService {
 
     @Override
     public String qryCheckBill(HoldByDateDto hbdDto) {
+        if (hbdDto == null) {
+            throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
+        }
         Date ldrq = hbdDto.getLdrq();
         String market = hbdDto.getMarket();
         String billNO = hbdDto.getBillNO();
