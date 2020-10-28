@@ -40,6 +40,11 @@ public class HoldByDateServiceImpl implements HoldByDateService {
             logger.error("表数据查询返回值异常");
             throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
         }
+
+        if (shEntity == null) {
+            logger.error("提货单："+billNO+"不存在");
+            throw new ThdfhclNotFoundException(errCode_13, errMsg_8+billNO+errMsg_13);
+        }
         String orlMarket = shEntity.getMARKET();
         Date orlDpttime = shEntity.getSHDPTTIME();
         String orlStatus = shEntity.getSHSTATUS();
@@ -59,14 +64,19 @@ public class HoldByDateServiceImpl implements HoldByDateService {
         long dates=(timeOne-timeTwo)/(1000*60*60*24);//转化天数
 
         if (!orlMarket.equals(market)) {//门店是否一致
+            logger.info("提货单："+billNO+"门店与输入门店不一致");
             throw new ThdfhclNotFoundException(errCode_8, errMsg_8+billNO+errMsg_8_1);
         } else if ("Y".equals(orlIsth)) {//是否退货
+            logger.info("提货单："+billNO+"已经退货");
             throw new ThdfhclNotFoundException(errCode_10, errMsg_8+billNO+errMsg_10);
         } else if (!"J".equals(orlThfs)) {//提货方式：邮寄提货
+            logger.info("提货单："+billNO+"提货方式不是【邮寄提货】");
             throw new ThdfhclNotFoundException(errCode_11, errMsg_8+billNO+errMsg_11);
         } else if (!"X".equals(orlStatus)) {//提货状态：待邮寄
+            logger.info("提货单："+billNO+"提货状态不是【待邮寄】");
             throw new ThdfhclNotFoundException(errCode_12, errMsg_8+billNO+errMsg_12);
         } else if (dates != 0) {//离岛日期
+            logger.info("提货单："+billNO+"离岛日期与输入日期不一致");
             throw new ThdfhclNotFoundException(errCode_9, errMsg_8+billNO+errMsg_9);
         } else {
             return xsdno;

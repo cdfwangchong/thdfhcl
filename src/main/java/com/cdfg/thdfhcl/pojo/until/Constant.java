@@ -44,6 +44,9 @@ public final class Constant {
     public static int errCode_12 = 3005;
     public static String errMsg_12 = "提货状态不是【待邮寄】";
 
+    public static int errCode_13 = 3006;
+    public static String errMsg_13 = "不存在";
+
 
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
