@@ -28,7 +28,7 @@
     <select id="qryCheckBill" parameterType="String" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List" />
-        from  SELLHEAD_SH
+        from  DBUSRPOS.SELLHEAD_SH
         where SHXSDNO = #{billNO,jdbcType=VARCHAR}
     </select>
 </mapper>

@@ -59,7 +59,7 @@ public class LoginServiceImpl implements LoginService {
             }
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("员号不存在或者密码错误");
+            logger.error("员工号不存在或者密码错误");
             throw new ThdfhclNotFoundException(errCode_2,errMsg_2);
         }
         return payload;
