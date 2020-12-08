@@ -14,7 +14,7 @@ public final class Constant {
     public static String errMsg_2 = "员号不存在或者密码错误";
 
     public static int errCode_3 = 1004;
-    public static String errMsg_3 = "表数据查询返回值异常";
+    public static String errMsg_3 = "提货单查询异常";
 
     public static int errCode_4 = 1005;
     public static String errMsg_4 = "获取到的Token值为空";
@@ -47,6 +47,29 @@ public final class Constant {
     public static int errCode_13 = 3006;
     public static String errMsg_13 = "不存在";
 
+    public static int errCode_14 = 3007;
+    public static String errMsg_14 = "查询，返回标志为空";
+
+    public static int errCode_15 = 3101;
+    public static String errMsg_15 = "离岛日期与输入暂存日期不一致";
+
+    public static int errCode_16 = 3102;
+    public static String errMsg_16 = "离岛时段与输入暂存时段不一致";
+
+    public static int errCode_17 = 3103;
+    public static String errMsg_17 = "提货地点与输入地点不一致";
+
+    public static int errCode_18 = 4003;
+    public static String errMsg_18 = "日期暂存异常";
+
+    public static int errCode_20 = 4002;
+    public static String errMsg_20 = "日期存放编码获取失败";
+
+    public static int errCode_21 = 4003;
+    public static String errMsg_21 = "日期暂存异常";
+
+    public static int errCode_19 = 4004;
+    public static String errMsg_19 = "日期暂存，返回标志为空";
 
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";

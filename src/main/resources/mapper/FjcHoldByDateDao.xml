@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfg.thdfhcl.dao.FjcHoldByDateDao">
+    <select id="qryXsdBill" parameterType="String" resultType="java.util.Map">
+       {CALL if_thdfhcl.qry_xsdbill
+        (#{billNO,mode=IN,jdbcType=VARCHAR},
+        #{mark,mode=IN,jdbcType=VARCHAR},
+        #{zcrq,mode=IN,jdbcType=DATE},
+        #{zcsdid,mode=IN,jdbcType=VARCHAR},
+        #{thdd,mode=IN,jdbcType=VARCHAR},
+        #{xsdno,mode=OUT,jdbcType=VARCHAR},
+        #{status,mode=OUT,jdbcType=VARCHAR},
+        #{ljtime,mode=OUT,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR}
+        )}
+    </select>
+
+    <select id="insertDts" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_thdfhcl.update_rqzc
+        (#{billNO,mode=IN,jdbcType=VARCHAR},
+        #{mark,mode=IN,jdbcType=VARCHAR},
+        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{zcrq,mode=IN,jdbcType=DATE},
+        #{zcsdid,mode=IN,jdbcType=VARCHAR},
+        #{OUT_FHDH,mode=OUT,jdbcType=VARCHAR},
+        #{OUT_FLAG,mode=OUT,jdbcType=VARCHAR},
+        #{OUT_MSG,mode=OUT,jdbcType=VARCHAR},
+        #{o_TmpCode,mode=OUT,jdbcType=VARCHAR}
+        )}
+  </select>
+</mapper>
