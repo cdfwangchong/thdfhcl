@@ -3,7 +3,7 @@ package com.cdfg.thdfhcl.controller;
 import cn.cdfg.exceptionHandle.ExceptionPrintMessage;
 import cn.cdfg.exceptionHandle.ThdfhclNotFoundException;
 import com.cdfg.thdfhcl.pojo.until.Result;
-import com.cdfg.thdfhcl.pojo.until.VersionEntity;
+import com.cdfg.thdfhcl.pojo.until.RqzcEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.log4j.Logger;
 import org.springframework.boot.system.ApplicationHome;
@@ -14,20 +14,20 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 import static com.cdfg.thdfhcl.pojo.until.Constant.*;
+import static com.cdfg.thdfhcl.pojo.until.Constant.sucMsg;
 
 @CrossOrigin
 @RestController
 @RequestMapping("cdfg")
-public class VerSionController {
+public class RqzcVerSionController {
+    Logger logger = Logger.getLogger(RqzcVerSionController.class);
 
-    Logger logger = Logger.getLogger(VerSionController.class);
-
-    @PostMapping("qryversion")
+    @PostMapping("qryRqzcVersion")
     @ResponseBody
-    public Result<VersionEntity> qryVersion(){
+    public Result<RqzcEntity> qryVersion(){
 
-        byte[] buffer= new byte[1000];
-        VersionEntity orderInfoBatch;
+        byte[] buffer= new byte[8000];
+        RqzcEntity orderInfoBatch;
 
         try {
             ApplicationHome applicationHome = new ApplicationHome(this.getClass());
@@ -36,11 +36,11 @@ public class VerSionController {
 
             String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
             System.out.println(path);
-            File txtfile = new File(route+ "/version-control.json");
+            File txtfile = new File(route+ "/SysteminitialConfig.json");
             InputStream inputStream=new FileInputStream(txtfile);
             inputStream.read(buffer);
             ObjectMapper mapper = new ObjectMapper();
-            orderInfoBatch = mapper.readValue(buffer, VersionEntity.class);
+            orderInfoBatch = mapper.readValue(buffer, RqzcEntity.class);
 
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
@@ -48,6 +48,6 @@ public class VerSionController {
             throw new ThdfhclNotFoundException(errCode_7,errMsg_7);
         }
 
-        return new Result<VersionEntity>(sucCode,sucMsg,orderInfoBatch);
+        return new Result<RqzcEntity>(sucCode,sucMsg,orderInfoBatch);
     }
 }

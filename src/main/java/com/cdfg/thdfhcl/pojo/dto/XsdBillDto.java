@@ -1,5 +1,7 @@
 package com.cdfg.thdfhcl.pojo.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 public class XsdBillDto {
@@ -35,17 +37,17 @@ public class XsdBillDto {
         this.thdd = thdd;
     }
 
-    public Date getZcrq() {
+    public String getZcrq() {
         return zcrq;
     }
 
-    public void setZcrq(Date zcrq) {
+    public void setZcrq(String zcrq) {
         this.zcrq = zcrq;
     }
 
     private String billNO;
     private String market;
-    private Date zcrq;
+    private String zcrq;
     private String zcsdid;
     private String thdd;
 }

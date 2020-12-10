@@ -7,15 +7,15 @@ import com.cdfg.thdfhcl.pojo.dto.XsdBillDto;
 import com.cdfg.thdfhcl.service.FjcHoldByDateService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import static com.cdfg.thdfhcl.pojo.until.Constant.*;
-import static com.cdfg.thdfhcl.pojo.until.Constant.errMsg_9;
 
+@Service
 public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
     @Autowired
     FjcHoldByDateDao fjchbdDao = null;
@@ -26,7 +26,7 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         if (xsdbillDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-        Date zcrq = xsdbillDto.getZcrq();
+        String zcrq = xsdbillDto.getZcrq();
         String mark = xsdbillDto.getMarket();
         String billNO = xsdbillDto.getBillNO();
         String thdd =xsdbillDto.getThdd();
@@ -37,13 +37,15 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         param.put("zcrq",zcrq);
         param.put("zcsdid",zcsdid);
         param.put("thdd",thdd);
+        logger.info("获取到分拣仓日期暂存，提货单输入结果："
+                +billNO+"门店："+mark+"暂存日期："+zcrq+"时段ID"+zcsdid+"提货点："+thdd);
 
         try {
             fjchbdDao.qryXsdBill(param);
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error(billNO+"提货单查询异常");
-            throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
+            throw new ThdfhclNotFoundException(errCode_3, billNO+errMsg_3);
         }
 
         String ret_flag = (String) param.get("ret_flag");
@@ -77,13 +79,13 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         }
         String xsdno = (String) param.get("xsdno");
         String status = (String) param.get("status");
-        String ljtime = (String) param.get("ljtime");
+        Date ljtime = (Date) param.get("ljtime");
 
         Map retMap = new HashMap();
-        retMap.put("xsdno",xsdno);
+        retMap.put("billNO",xsdno);
         retMap.put("status",status);
-        retMap.put("ljtime",ljtime);
-
+        retMap.put("ldrq",ljtime);
+        logger.info("获取到分拣仓日期暂存，提货单查询结果："+xsdno+"状态："+status+"离境日期："+ljtime);
         return retMap;
     }
 
@@ -92,17 +94,16 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         if (xsdbillDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-        Date zcrq = xsdbillDto.getZcrq();
+        String zcrq = xsdbillDto.getZcrq();
         String mark = xsdbillDto.getMarket();
         String billNO = xsdbillDto.getBillNO();
-        String thdd =xsdbillDto.getThdd();
         String zcsdid = xsdbillDto.getZcsdid();
         Map param = new HashMap();
         param.put("billNO",billNO);
         param.put("mark",mark);
         param.put("zcrq",zcrq);
         param.put("zcsdid",zcsdid);
-        param.put("thdd",thdd);
+        param.put("operator",worknumber);
 
         try {
             fjchbdDao.insertDts(param);
@@ -112,6 +113,7 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
             throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNO+errMsg_18);
         }
         String out_flag = (String) param.get("OUT_FLAG");
+        String out_msg = (String) param.get("OUT_MSG");
         if (out_flag.isEmpty()) {
             logger.info("提货单："+billNO+"日期暂存，返回标志为空");
             throw new ThdfhclNotFoundException(errCode_19, errMsg_8+billNO+errMsg_19);
@@ -124,8 +126,13 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
             logger.info("提货单："+billNO+"日期暂存异常");
             throw new ThdfhclNotFoundException(errCode_21, errMsg_8+billNO+errMsg_21);
         }
+        if ("N".equals(out_flag)) {
+            logger.info("提货单："+billNO+out_msg);
+            throw new ThdfhclNotFoundException(errCode_21, out_msg);
+        }
 
         String o_TmpCode = (String) param.get("o_TmpCode");
+        logger.info("获取到分拣仓日期暂存编码："+o_TmpCode);
         return o_TmpCode;
     }
 }
