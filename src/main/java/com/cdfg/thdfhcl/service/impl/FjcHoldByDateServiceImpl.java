@@ -39,7 +39,6 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         param.put("thdd",thdd);
         logger.info("获取到分拣仓日期暂存，提货单输入结果："
                 +billNO+"门店："+mark+"暂存日期："+zcrq+"时段ID"+zcsdid+"提货点："+thdd);
-
         try {
             fjchbdDao.qryXsdBill(param);
         } catch (Exception e) {
