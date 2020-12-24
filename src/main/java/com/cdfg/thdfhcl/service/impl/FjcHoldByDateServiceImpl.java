@@ -75,7 +75,7 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         }
         if("3003".equals(ret_flag) ) {
             logger.info("提货单："+billNO+"已经退货");
-            throw new ThdfhclNotFoundException(errCode_10, errMsg_8+billNO+errCode_10);
+            throw new ThdfhclNotFoundException(errCode_10, errMsg_8+billNO+errMsg_10);
         }
         String xsdno = (String) param.get("xsdno");
         String status = (String) param.get("status");
@@ -104,6 +104,8 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         param.put("zcrq",zcrq);
         param.put("zcsdid",zcsdid);
         param.put("operator",worknumber);
+        logger.info("获取到分拣仓日期暂存，提货单输入结果："
+                +billNO+"门店："+mark+"暂存日期："+zcrq+"时段ID"+zcsdid);
 
         try {
             fjchbdDao.insertDts(param);
@@ -113,7 +115,10 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
             throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNO+errMsg_18);
         }
         String out_flag = (String) param.get("OUT_FLAG");
+        logger.info("获取到分拣仓日期暂存标志："+out_flag);
+
         String out_msg = (String) param.get("OUT_MSG");
+        logger.info("获取到分拣仓日期暂存信息："+out_msg);
         if (out_flag.isEmpty()) {
             logger.info("提货单："+billNO+"日期暂存，返回标志为空");
             throw new ThdfhclNotFoundException(errCode_19, errMsg_8+billNO+errMsg_19);
@@ -124,11 +129,11 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         }
         if ("4003".equals(out_flag)) {
             logger.info("提货单："+billNO+"日期暂存异常");
-            throw new ThdfhclNotFoundException(errCode_21, errMsg_8+billNO+errMsg_21);
+            throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNO+errMsg_18);
         }
         if ("N".equals(out_flag)) {
             logger.info("提货单："+billNO+out_msg);
-            throw new ThdfhclNotFoundException(errCode_21, out_msg);
+            throw new ThdfhclNotFoundException(errCode_18, out_msg);
         }
 
         String o_TmpCode = (String) param.get("o_TmpCode");

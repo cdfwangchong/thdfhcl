@@ -65,9 +65,6 @@ public final class Constant {
     public static int errCode_20 = 4002;
     public static String errMsg_20 = "日期存放编码获取失败";
 
-    public static int errCode_21 = 4003;
-    public static String errMsg_21 = "日期暂存异常";
-
     public static int errCode_19 = 4004;
     public static String errMsg_19 = "日期暂存，返回标志为空";
 
