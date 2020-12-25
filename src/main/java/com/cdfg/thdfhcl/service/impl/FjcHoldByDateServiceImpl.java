@@ -76,6 +76,12 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
             logger.info("提货单："+billNO+"已经退货");
             throw new ThdfhclNotFoundException(errCode_10, errMsg_8+billNO+errMsg_10);
         }
+
+        if("3004".equals(ret_flag) ) {
+            logger.info("提货单："+billNO+"状态不正确");
+            throw new ThdfhclNotFoundException(errCode_21, errMsg_8+billNO+errMsg_21);
+        }
+
         String xsdno = (String) param.get("xsdno");
         String status = (String) param.get("status");
         Date ljtime = (Date) param.get("ljtime");

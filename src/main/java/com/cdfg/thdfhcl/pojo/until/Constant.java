@@ -68,6 +68,8 @@ public final class Constant {
     public static int errCode_19 = 4004;
     public static String errMsg_19 = "日期暂存，返回标志为空";
 
+    public static int errCode_21 = 4005;
+    public static String errMsg_21 = "状态不正确";
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 
