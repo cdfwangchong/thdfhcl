@@ -1,12 +1,12 @@
 package com.cdfg.thdfhcl.pojo.until;
 
 public class SellBillEntity {
-    public String getBillNO() {
-        return billNO;
+    public String getBillNo() {
+        return billNo;
     }
 
-    public void setBillNO(String billNO) {
-        this.billNO = billNO;
+    public void setBillNo(String billNo) {
+        this.billNo = billNo;
     }
 
     public String getStatus() {
@@ -41,13 +41,13 @@ public class SellBillEntity {
         this.market = market;
     }
 
-    private String billNO;
+    private String billNo="";
 
-    private String status;
+    private String status="";
 
-    private String flightNo;
+    private String flightNo="";
 
-    private String ldrq;
+    private String ldrq="";
 
-    private String market;
+    private String market="";
 }

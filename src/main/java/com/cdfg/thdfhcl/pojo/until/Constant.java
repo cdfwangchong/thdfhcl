@@ -70,6 +70,34 @@ public final class Constant {
 
     public static int errCode_21 = 4005;
     public static String errMsg_21 = "状态不正确";
+
+    public static int errCode_22 = 5001;
+    public static String errMsg_22 = "顾客提货查询客人航班、提货单信息异常";
+
+    public static int errCode_23 = 5002;
+    public static String errMsg_23 = "顾客提货航班修改存储过程执行异常";
+
+    public static int errCode_24 = 5003;
+    public static String errMsg_24 = "顾客提货确认存储过程执行异常";
+
+    public static int errCode_25 = 5004;
+    public static String errMsg_25 = "顾客提货确认存储过程返回值为空";
+
+    public static int errCode_26 = 5005;
+    public static String errMsg_26 = "顾客提货查询客人提货单信息返回值为空";
+
+    public static int errCode_27 = 5006;
+    public static String errMsg_27 = "登机牌航班查询存储过程执行异常";
+
+    public static int errCode_28 = 5007;
+    public static String errMsg_28 = "输入航班不存在";
+
+    public static int errCode_29 = 5008;
+    public static String errMsg_29 = "航班查询提货点信息异常";
+
+    public static int errCode_30 = 5008;
+    public static String errMsg_30 = "航班查询提货点信息返回值为空";
+
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

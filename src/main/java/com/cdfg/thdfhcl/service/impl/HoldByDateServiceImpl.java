@@ -63,10 +63,11 @@ public class HoldByDateServiceImpl implements HoldByDateService {
 
         long dates=(timeOne-timeTwo)/(1000*60*60*24);//转化天数
 
-        if (!orlMarket.equals(market)) {//门店是否一致
-            logger.info("提货单："+billNO+"门店与输入门店不一致");
-            throw new ThdfhclNotFoundException(errCode_8, errMsg_8+billNO+errMsg_8_1);
-        } else if ("Y".equals(orlIsth)) {//是否退货
+//        if (!orlMarket.equals(market)) {//门店是否一致
+//            logger.info("提货单："+billNO+"门店与输入门店不一致");
+//            throw new ThdfhclNotFoundException(errCode_8, errMsg_8+billNO+errMsg_8_1);
+//        } else
+         if ("Y".equals(orlIsth)) {//是否退货
             logger.info("提货单："+billNO+"已经退货");
             throw new ThdfhclNotFoundException(errCode_10, errMsg_8+billNO+errMsg_10);
         } else if (!"J".equals(orlThfs)) {//提货方式：邮寄提货
@@ -88,7 +89,6 @@ public class HoldByDateServiceImpl implements HoldByDateService {
         if (hbdDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-
         Map param  = new HashMap<String,String>();
         param.put("operator",worknumber);
         param.put("billNO",hbdDto.getBillNO());
