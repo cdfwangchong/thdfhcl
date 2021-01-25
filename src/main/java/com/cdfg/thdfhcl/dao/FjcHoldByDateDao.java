@@ -1,6 +1,5 @@
 package com.cdfg.thdfhcl.dao;
 
-import com.cdfg.thdfhcl.pojo.until.SellHeadEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -10,4 +9,8 @@ public interface FjcHoldByDateDao {
     Map qryXsdBill(Map param);
 
     Map insertDts(Map param);
+
+    Map qryZcsd(Map param);
+
+    Map thdfjgl(Map param);
 }

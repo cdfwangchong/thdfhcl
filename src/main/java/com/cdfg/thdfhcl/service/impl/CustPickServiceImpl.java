@@ -16,7 +16,6 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -174,7 +173,7 @@ public class CustPickServiceImpl implements CustPickService {
             ldrq = djpStr.substring(6,8);//取出第七第八位
             logger.info("顾客"+cardid+"离岛日期登机牌"+djpStr+"航班号："+flightNo);
         }else if (djpStr.length() ==6) {
-            flightNo = djpStr;//取出第一第六位
+            flightNo = djpStr;
             ldrq = "";
             logger.info("顾客"+cardid+"离岛日期登机牌"+djpStr+"航班号："+flightNo);
         }else if (djpStr.length() >6 && djpStr.length()<17) {
@@ -182,7 +181,7 @@ public class CustPickServiceImpl implements CustPickService {
             ldrq = "";
             logger.info("顾客"+cardid+"离岛日期登机牌"+djpStr+"航班号："+flightNo);
         }else {
-            return "Y";
+            return "N";
         }
         Map map = new HashMap();
         map.put("flightNo",flightNo);
@@ -202,7 +201,7 @@ public class CustPickServiceImpl implements CustPickService {
                 "retmsg：" + retmsg);
         if ("2003".equals(retflag)) {
             logger.error("顾客登机牌航班不存在");
-            throw new ThdfhclNotFoundException(errCode_27,"航班号"+flightNo+errMsg_27);
+            throw new ThdfhclNotFoundException(errCode_28,"航班号"+flightNo+errMsg_28);
         }else if ("2004".equals(retflag)) {
             logger.error("顾客登机牌航班查询存储过程执行异常");
             throw new ThdfhclNotFoundException(errCode_27,errMsg_27);
@@ -218,6 +217,7 @@ public class CustPickServiceImpl implements CustPickService {
         String cardid = cpDto.getCardId();
         String ticketcode = cpDto.getTicketCode();
         List<SellBillEntity> billnolist = cpDto.getSellhead();
+        String ticketCode = cpDto.getTicketCode();
         logger.info("取到顾客提货-航班修改接口传入的证件号"+cardid+"登机牌："+ticketcode);
         for (int i = 0; i < billnolist.size(); i++) {
             SellBillEntity sbEntity = billnolist.get(i);
@@ -235,6 +235,7 @@ public class CustPickServiceImpl implements CustPickService {
             map.put("flightTime",ldrq);
             map.put("xsdno",billno);
             map.put("operator",worknumber);
+            map.put("ticketCode",ticketCode);
             try {
                 cpDao.cusnPick(map);
             } catch (Exception e) {
@@ -248,7 +249,13 @@ public class CustPickServiceImpl implements CustPickService {
                 logger.error("顾客提货确认返回值为空");
                 throw new ThdfhclNotFoundException(errCode_25,errMsg_25);
             }
-            logger.info("取到顾客提货-航班修改接口传入的提货单信息证件号" + cardid + "门店："
+
+            if ("2006".equals(retflag) || "2005".equals(retflag)||"2004".equals(retflag)) {
+                logger.error(retmsg);
+                throw new ThdfhclNotFoundException(errCode_25,retmsg);
+            }
+
+            logger.info("取到顾客提货-顾客提货确认接口传入的提货单信息证件号" + cardid + "门店："
                     + market +"的返回标志"+retflag+"返回信息"+retmsg);
         }
         return 0;

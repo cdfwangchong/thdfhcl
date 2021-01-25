@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cdfg.thdfhcl.dao.CustPickDao">
     <select id="qryCustPickInfo" statementType="CALLABLE" resultType="java.util.Map">
-       {CALL if_thdfhcl.qry_custbill
+       {CALL if_thdgkth.qry_custbill
         (#{cardId,mode=IN,jdbcType=VARCHAR},
         #{userName,mode=OUT,jdbcType=VARCHAR},
         #{userId,mode=OUT,jdbcType=VARCHAR},
@@ -26,7 +26,7 @@
     </resultMap>
 
     <select id="updateModifyFlight" statementType="CALLABLE" resultType="java.util.Map">
-       {CALL if_thdfhcl.modifyflight
+       {CALL if_thdgkth.modifyflight
         (#{market,mode=IN,jdbcType=VARCHAR},
         #{cardId,mode=IN,jdbcType=VARCHAR},
         #{new_flightNum,mode=IN,jdbcType=VARCHAR},
@@ -39,7 +39,7 @@
     </select>
 
     <select id="cusnPick" statementType="CALLABLE" resultType="java.util.Map">
-       {CALL if_thdfhcl.custpick
+       {CALL if_thdgkth.custpick
         (#{market,mode=IN,jdbcType=VARCHAR},
         #{flightNum,mode=IN,jdbcType=VARCHAR},
         #{flightTime,mode=IN,jdbcType=VARCHAR},
@@ -53,7 +53,7 @@
     </select>
 
     <select id="qryScanDjp" statementType="CALLABLE" resultType="java.util.Map">
-       {CALL if_thdfhcl.qry_scandjp
+       {CALL if_thdgkth.qry_scandjp
         (#{flightNo,mode=IN,jdbcType=VARCHAR},
         #{ldrq,mode=IN,jdbcType=VARCHAR},
         #{xsdno,mode=IN,jdbcType=VARCHAR},

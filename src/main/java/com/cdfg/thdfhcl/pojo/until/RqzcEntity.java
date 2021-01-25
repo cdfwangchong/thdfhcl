@@ -20,6 +20,24 @@ public class RqzcEntity {
         this.placeofdelivery = placeofdelivery;
     }
 
+    public List<SCDetailEntity> getCargostatus() {
+        return cargostatus;
+    }
+
+    public void setCargostatus(List<SCDetailEntity> cargostatus) {
+        this.cargostatus = cargostatus;
+    }
+
+    public List<SCDetailEntity> getStore() {
+        return store;
+    }
+
+    public void setStore(List<SCDetailEntity> store) {
+        this.store = store;
+    }
+
     private ZcsdEntity temporarystoragedate;
     private ThdEntity placeofdelivery;
+    private List<SCDetailEntity> cargostatus;
+    private List<SCDetailEntity> store;
 }

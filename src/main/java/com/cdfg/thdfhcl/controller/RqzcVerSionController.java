@@ -35,7 +35,7 @@ public class RqzcVerSionController {
             String route = file.getAbsolutePath();
 
             String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-            System.out.println(path);
+            //System.out.println(path);
             File txtfile = new File(route+ "/SysteminitialConfig.json");
             InputStream inputStream=new FileInputStream(txtfile);
             inputStream.read(buffer);

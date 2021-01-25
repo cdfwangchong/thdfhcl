@@ -86,8 +86,8 @@ public class CustPickController {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
        String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-       String worknumber = "3859";
+        String worknumber = new Token().CheckToken(token);
+//       String worknumber = "3859";
        String flag = cpService.scanDjp(bpDto);
        Map<String,String> retparam=new HashMap<String,String>();
        retparam.put("flag",flag);

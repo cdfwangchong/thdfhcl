@@ -1,5 +1,7 @@
 package com.cdfg.thdfhcl.pojo.until;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.List;
 
 public class CustBillEntity {
@@ -31,6 +33,7 @@ public class CustBillEntity {
         return flightTime;
     }
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mi:dd",timezone = "GMT+8")
     public void setFlightTime(String flightTime) {
         this.flightTime = flightTime;
     }

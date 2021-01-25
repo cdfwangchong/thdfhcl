@@ -28,4 +28,33 @@
         #{o_TmpCode,mode=OUT,jdbcType=VARCHAR}
         )}
   </select>
+
+  <select id="qryZcsd" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_thdfhcl.qry_zcinfo
+        (#{billNO,mode=IN,jdbcType=VARCHAR},
+        #{mark,mode=OUT,jdbcType=VARCHAR},
+        #{zcrq,mode=OUT,jdbcType=VARCHAR},
+        #{zcsdid,mode=OUT,jdbcType=VARCHAR},
+        #{zcsdname,mode=OUT,jdbcType=VARCHAR},
+        #{thdd,mode=OUT,jdbcType=VARCHAR},
+        #{xsdno,mode=OUT,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR}
+        )}
+  </select>
+
+  <select id="thdfjgl" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_thdfhcl.thdfjgl
+        (#{billNO,mode=IN,jdbcType=VARCHAR},
+        #{mark,mode=IN,jdbcType=VARCHAR},
+        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{thdd,mode=OUT,jdbcType=VARCHAR},
+        #{xsdno,mode=OUT,jdbcType=VARCHAR},
+        #{status,mode=OUT,jdbcType=VARCHAR},
+        #{ljtime,mode=OUT,jdbcType=VARCHAR},
+        #{isth,mode=OUT,jdbcType=VARCHAR},
+        #{isjj,mode=OUT,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR},
+        #{ret_msg,mode=OUT,jdbcType=VARCHAR}
+        )}
+  </select>
 </mapper>

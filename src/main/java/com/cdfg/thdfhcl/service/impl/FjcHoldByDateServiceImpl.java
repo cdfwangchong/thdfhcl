@@ -3,6 +3,8 @@ package com.cdfg.thdfhcl.service.impl;
 import cn.cdfg.exceptionHandle.ExceptionPrintMessage;
 import cn.cdfg.exceptionHandle.ThdfhclNotFoundException;
 import com.cdfg.thdfhcl.dao.FjcHoldByDateDao;
+import com.cdfg.thdfhcl.pojo.dto.BillDto;
+import com.cdfg.thdfhcl.pojo.dto.ThdfjglDto;
 import com.cdfg.thdfhcl.pojo.dto.XsdBillDto;
 import com.cdfg.thdfhcl.service.FjcHoldByDateService;
 import org.apache.log4j.Logger;
@@ -144,5 +146,111 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         String o_TmpCode = (String) param.get("o_TmpCode");
         logger.info("获取到分拣仓日期暂存编码："+o_TmpCode);
         return o_TmpCode;
+    }
+
+    @Override
+    public Map qryZcsd(BillDto billDto) {
+        if (billDto == null) {
+            throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
+        }
+        String billNO = billDto.getBillNO();
+        Map param = new HashMap();
+        param.put("billNO",billNO);
+        logger.info("查询暂存时段条件接口的输入结果的：" +billNO);
+
+        try {
+            fjchbdDao.qryZcsd(param);
+        } catch (Exception e) {
+            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
+            logger.error("提货单"+billNO+"查询暂存时段条件存储过程返回异常");
+            throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNO+errMsg_31);
+        }
+        String ret_flag = (String) param.get("ret_flag");
+        logger.info("取到查询暂存时段条件返回标志："+ret_flag);
+        if (ret_flag.isEmpty()) {
+            logger.info("提货单："+billNO+"查询暂存时段条件，返回标志为空");
+            throw new ThdfhclNotFoundException(errCode_19, errMsg_8+billNO+errMsg_14);
+        }
+
+        if ("3006".equals(ret_flag)) {
+            logger.info("提货单："+billNO+"不存在");
+            throw new ThdfhclNotFoundException(errCode_13, errMsg_8+billNO+errMsg_13);
+        }
+        if ("3003".equals(ret_flag)) {
+            logger.info("提货单："+billNO+"已退货");
+            throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNO+errMsg_10);
+        }
+        if ("3004".equals(ret_flag)) {
+            logger.info("提货单："+billNO+"暂存状态不正确");
+            throw new ThdfhclNotFoundException(errCode_21, errMsg_8+billNO+errMsg_21);
+        }
+
+        String mark = (String) param.get("mark");
+        String zcrq = (String) param.get("zcrq");
+        String zcsdid = (String) param.get("zcsdid");
+        String zcsdname = (String) param.get("zcsdname");
+        String thdd = (String) param.get("thdd");
+        String xsdno = (String) param.get("xsdno");
+
+        Map retMap = new HashMap();
+        retMap.put("xsdno",xsdno);
+        retMap.put("market",mark);
+        retMap.put("zcrq",zcrq);
+        retMap.put("zcsdid",zcsdid);
+        retMap.put("thdd",thdd);
+        retMap.put("zcsdname",zcsdname);
+        logger.info("查询暂存时段条件返回值："+xsdno+mark+zcrq+zcsdid+thdd+zcsdname);
+
+        return retMap;
+    }
+
+    @Override
+    public Map thdfjgl(ThdfjglDto thdfjglDto, String worknumber) {
+        if (thdfjglDto == null) {
+            throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
+        }
+        String billNO = thdfjglDto.getBillNO();
+        Map param = new HashMap();
+        param.put("billNO",billNO);
+        param.put("operator",worknumber);
+        logger.info("提货单分拣管理接口输入的结果：" +billNO);
+
+        try {
+            fjchbdDao.thdfjgl(param);
+        } catch (Exception e) {
+            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
+            logger.error("提货单"+billNO+"执行提货单分拣管理存储过程返回异常");
+            throw new ThdfhclNotFoundException(errCode_32, errMsg_8+billNO+errMsg_32);
+        }
+
+        String ret_flag = (String) param.get("ret_flag");
+        String ret_msg = (String) param.get("ret_msg");
+        if (ret_flag.isEmpty()) {
+            logger.info("提货单："+billNO+"，返回标志为空");
+            throw new ThdfhclNotFoundException(errCode_33, errMsg_8+billNO+errMsg_33);
+        }
+
+        if ("3005".equals(ret_flag)) {
+            logger.info("提货单："+billNO+""+ret_msg);
+            throw new ThdfhclNotFoundException(Integer.parseInt(ret_flag),ret_msg);
+        }
+
+        String status = (String) param.get("status");
+        String ldrq = (String) param.get("ljtime");
+        String isth = (String) param.get("isth");
+        String isjj = (String) param.get("isjj");
+        String thdd = (String) param.get("thdd");
+        Map retMap = new HashMap();
+        retMap.put("billNO",billNO);
+        retMap.put("status",status);
+        retMap.put("ldrq",ldrq);
+        retMap.put("isth",isth);
+        retMap.put("isjj",isjj);
+        retMap.put("thdd",thdd);
+        retMap.put("ret_flag",ret_flag);
+        retMap.put("ret_msg",ret_msg);
+
+        logger.info("提货单分拣管理存储过程返回值："+billNO+status+ldrq+isth+thdd+isjj);
+        return retMap;
     }
 }
