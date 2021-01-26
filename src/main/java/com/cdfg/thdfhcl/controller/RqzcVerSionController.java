@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 
 import static com.cdfg.thdfhcl.pojo.until.Constant.*;
@@ -26,28 +27,37 @@ public class RqzcVerSionController {
     @ResponseBody
     public Result<RqzcEntity> qryVersion(){
 
-        byte[] buffer= new byte[8000];
+//        byte[] buffer= new byte[8000];
         RqzcEntity orderInfoBatch;
-
+        InputStream inputStream = null;
         try {
             ApplicationHome applicationHome = new ApplicationHome(this.getClass());
             File file = applicationHome.getDir();
-            String route = file.getAbsolutePath();
+            String route = file.getAbsolutePath();//文件相对路径
 
-            String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-            //System.out.println(path);
+            //文件绝对路径
+//            String path = this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+//            System.out.println(path);
             File txtfile = new File(route+ "/SysteminitialConfig.json");
-            InputStream inputStream=new FileInputStream(txtfile);
-            inputStream.read(buffer);
+            inputStream=new FileInputStream(txtfile);
+//            inputStream.read(buffer);
             ObjectMapper mapper = new ObjectMapper();
-            orderInfoBatch = mapper.readValue(buffer, RqzcEntity.class);
-
+//             mapper.readValue(buffer, RqzcEntity.class);
+            orderInfoBatch = mapper.readValue(inputStream,RqzcEntity.class);
+            inputStream.close();
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("获取version-control.txt文件内容异常");
-            throw new ThdfhclNotFoundException(errCode_7,errMsg_7);
+            logger.error("获取参数字典文件内容异常");
+            throw new ThdfhclNotFoundException(errCode_34,errMsg_34);
+        }finally {
+            if (inputStream != null) {
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    logger.error("关闭输出流错误！", e);
+                }
+            }
         }
-
         return new Result<RqzcEntity>(sucCode,sucMsg,orderInfoBatch);
     }
 }

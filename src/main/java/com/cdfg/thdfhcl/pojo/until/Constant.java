@@ -107,6 +107,8 @@ public final class Constant {
     public static int errCode_33 = 5011;
     public static String errMsg_33 = "，返回标志为空";
 
+    public static int errCode_34 = 5012;
+    public static String errMsg_34 = "获取参数字典文件异常";
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

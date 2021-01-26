@@ -210,8 +210,10 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
         String billNO = thdfjglDto.getBillNO();
+        String mark = thdfjglDto.getMarket();
         Map param = new HashMap();
         param.put("billNO",billNO);
+        param.put("mark",mark);
         param.put("operator",worknumber);
         logger.info("提货单分拣管理接口输入的结果：" +billNO);
 
