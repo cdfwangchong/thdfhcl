@@ -67,8 +67,8 @@ public class CustPickController {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
         String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+        String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
         CustBillEntity cbEntity = cpService.updateModifyFlight(mfDto,worknumber);
 
         return new Result<CustBillEntity>(sucCode,sucMsg,cbEntity);
@@ -106,8 +106,8 @@ public class CustPickController {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
         String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+        String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
         cpService.custPick(cpDto,worknumber);
 
         return new Result<String>(sucCode,sucMsg,"");
@@ -125,8 +125,8 @@ public class CustPickController {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
         String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+        String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
         ThddEntity thddEntity = cpService.qryThdd(flightDto);
 
         return new Result<ThddEntity>(sucCode,sucMsg,thddEntity);

@@ -91,9 +91,9 @@ public class FjcHoldByDateController {
         if (thdfjglDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-//        String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+        String token = request.getHeader("Authorization");
+        String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
 
         Map retmap = fhbdService.thdfjgl(thdfjglDto,worknumber);
         String flagStr = (String) retmap.get("ret_flag");

@@ -1,19 +1,19 @@
 
 server:
-  port: 8790 #测试
-#  port: 8792 #正式
+#  port: 8790 #测试
+  port: 8792 #正式
 
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
 
 spring:
   datasource:
-    url: jdbc:oracle:thin:@10.190.3.10:1521:hncdfposmgr
-    username: dbusrpos
-    password: nibuhao123456!
-#    url: jdbc:oracle:thin:@10.190.1.39:1521:hncdfposmgr
-#    username: dbusrit
-#    password: mgrit_0
+#    url: jdbc:oracle:thin:@10.190.3.10:1521:hncdfposmgr
+#    username: dbusrpos
+#    password: nibuhao123456!
+    url: jdbc:oracle:thin:@10.190.1.39:1521:hncdfposmgr
+    username: dbusrit
+    password: mgrit_0
     driver-class-name:  oracle.jdbc.OracleDriver
     type: com.alibaba.druid.pool.DruidDataSource
     initialSize: 5
