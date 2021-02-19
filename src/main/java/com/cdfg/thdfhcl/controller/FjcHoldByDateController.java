@@ -7,6 +7,7 @@ import com.cdfg.thdfhcl.pojo.dto.XsdBillDto;
 import com.cdfg.thdfhcl.pojo.until.Result;
 import com.cdfg.thdfhcl.pojo.until.Token;
 import com.cdfg.thdfhcl.service.FjcHoldByDateService;
+//import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ import static com.cdfg.thdfhcl.pojo.until.Constant.errMsg_5;
 @CrossOrigin
 @RequestMapping("/cdfg")
 @RestController
+//@Slf4j
 public class FjcHoldByDateController {
     @Autowired
     FjcHoldByDateService fhbdService=null;

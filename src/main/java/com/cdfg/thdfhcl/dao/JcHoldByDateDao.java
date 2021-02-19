@@ -1,0 +1,12 @@
+package com.cdfg.thdfhcl.dao;
+
+import org.springframework.stereotype.Repository;
+
+import java.util.Map;
+
+@Repository
+public interface JcHoldByDateDao {
+    Map qryCheckBill(Map param);
+
+    Map insertDts(Map param);
+}

@@ -2,6 +2,7 @@ package com.cdfg.thdfhcl.pojo.dto;
 
 public class UserDto {
     private String userId;
+
     private String passWord;
 
     public String getUserId() {
