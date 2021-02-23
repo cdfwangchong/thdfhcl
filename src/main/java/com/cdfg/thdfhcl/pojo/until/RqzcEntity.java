@@ -44,9 +44,19 @@ public class RqzcEntity {
         this.allplaceofdelivery = allplaceofdelivery;
     }
 
+    public List<SCDetailEntity> getJcstoragelocation() {
+        return jcstoragelocation;
+    }
+
+    public void setJcstoragelocation(List<SCDetailEntity> jcstoragelocation) {
+        this.jcstoragelocation = jcstoragelocation;
+    }
+
     private ZcsdEntity temporarystoragedate;
     private ThdEntity placeofdelivery;
     private List<SCDetailEntity> cargostatus;
     private List<SCDetailEntity> allstore;
     private List<SCDetailEntity> allplaceofdelivery;
+    private List<SCDetailEntity> jcstoragelocation;
+
 }

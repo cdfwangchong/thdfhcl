@@ -22,6 +22,8 @@
         #{market,mode=IN,jdbcType=VARCHAR},
         #{qhdd,mode=IN,jdbcType=VARCHAR},
         #{zctype,mode=IN,jdbcType=VARCHAR},
+        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR},
         #{zcRc,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet,resultMap=JcXsdbillEntity}
         )}
     </select>
@@ -33,6 +35,28 @@
         <result column="market" property="market"/>
         <result column="isth" property="isth"/>
         <result column="zxdh" property="zxdh"/>
+        <result column="status" property="status"/>
+        <result column="gwkh" property="gwkh"/>
+        <result column="name" property="name"/>
     </resultMap>
+
+    <select id="qryJcThBill" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_deptinfo.qry_JcThBill
+        (#{market,mode=IN,jdbcType=VARCHAR},
+        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR},
+        #{thRc,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet,resultMap=JcXsdbillEntity}
+        )}
+    </select>
+
+    <select id="updateJcTh" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_deptinfo.update_JcTh
+        (#{market,mode=IN,jdbcType=VARCHAR},
+        #{xsdno,mode=IN,jdbcType=VARCHAR},
+        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR},
+        #{ret_msg,mode=OUT,jdbcType=VARCHAR}
+        )}
+  </select>
 
 </mapper>

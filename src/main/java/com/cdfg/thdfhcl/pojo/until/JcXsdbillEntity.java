@@ -61,6 +61,22 @@ public class JcXsdbillEntity {
         this.status = status;
     }
 
+    public String getGwkh() {
+        return gwkh;
+    }
+
+    public void setGwkh(String gwkh) {
+        this.gwkh = gwkh;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     private String xsdno;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -75,4 +91,8 @@ public class JcXsdbillEntity {
     private String zxdh="";
 
     private String status="";
+
+    private String gwkh;
+
+    private String name;
 }

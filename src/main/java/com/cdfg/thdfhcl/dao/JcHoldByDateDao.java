@@ -9,4 +9,9 @@ public interface JcHoldByDateDao {
     Map qryCheckBill(Map param);
 
     Map insertDts(Map param);
+
+    Map qryJcThBill(Map param);
+
+    Map updateJcTh(Map param);
+
 }
