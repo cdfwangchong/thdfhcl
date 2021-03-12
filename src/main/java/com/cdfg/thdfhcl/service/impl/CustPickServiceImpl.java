@@ -15,6 +15,9 @@ import com.cdfg.thdfhcl.service.CustPickService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +48,7 @@ public class CustPickServiceImpl implements CustPickService {
         sbelist = (List<SellBillEntity>) parammap.get("shRc");
         if (sbelist.size() == 0) {
             logger.error("顾客提货查询客人提货单信息返回值为空");
-            throw new ThdfhclNotFoundException(errCode_26,errMsg_26);
+            throw new ThdfhclNotFoundException(errCode_26,CardId+errMsg_26);
         }
         String userName = (String) parammap.get("userName");
         String userId = (String)parammap.get("userId");
@@ -74,7 +77,7 @@ public class CustPickServiceImpl implements CustPickService {
         cbEntity.setAddressName(addressname);
         return cbEntity;
     }
-
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout = 30,rollbackFor = Exception.class)
     @Override
     public CustBillEntity updateModifyFlight(ModifyFlightDto mfDto,String worknumber ) {
         String cardid = mfDto.getCardId();
@@ -212,6 +215,7 @@ public class CustPickServiceImpl implements CustPickService {
         }
     }
 
+    @Transactional(propagation = Propagation.REQUIRED,isolation = Isolation.DEFAULT,timeout = 30,rollbackFor = Exception.class)
     @Override
     public int custPick(CustPickDto cpDto,String worknumber) {
         String cardid = cpDto.getCardId();

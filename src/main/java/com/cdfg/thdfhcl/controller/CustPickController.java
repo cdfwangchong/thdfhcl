@@ -2,10 +2,7 @@ package com.cdfg.thdfhcl.controller;
 
 import cn.cdfg.exceptionHandle.ThdfhclNotFoundException;
 import com.cdfg.thdfhcl.pojo.dto.*;
-import com.cdfg.thdfhcl.pojo.until.CustBillEntity;
-import com.cdfg.thdfhcl.pojo.until.Result;
-import com.cdfg.thdfhcl.pojo.until.ThddEntity;
-import com.cdfg.thdfhcl.pojo.until.Token;
+import com.cdfg.thdfhcl.pojo.until.*;
 import com.cdfg.thdfhcl.service.CustPickService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static com.cdfg.thdfhcl.pojo.until.Constant.*;
@@ -109,8 +107,17 @@ public class CustPickController {
         String worknumber = new Token().CheckToken(token);
 //        String worknumber = "3859";
         cpService.custPick(cpDto,worknumber);
-
-        return new Result<String>(sucCode,sucMsg,"");
+        String billnos = null;
+        List<SellBillEntity>sbelist =  cpDto.getSellhead();
+        for (SellBillEntity sbentity:sbelist) {
+            if (sbentity == null) {
+                billnos = sbentity.getBillNo();
+            }else
+            {
+                billnos = billnos+","+sbentity.getBillNo();
+            }
+        }
+        return new Result<String>(sucCode,sucMsg,billnos);
     }
 
     /**

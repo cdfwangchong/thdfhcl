@@ -99,17 +99,17 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
         List<JcXsdbillEntity> beyList;
         try {
             hbdDao.qryJcThBill(param);
-            //取出结果集
-            String ret_flag = (String) param.get("ret_flag");
-            if ("1001".equals(ret_flag)) {
-                throw new ThdfhclNotFoundException (errCode_3, worknumber+"不能查询其他门店提货单");
-            }
-            beyList = (List<JcXsdbillEntity>) param.get("thRc");
         } catch (Exception e) {
             logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
             throw new ThdfhclNotFoundException (errCode_3, errMsg_3);
         }
+        //取出结果集
+        String ret_flag = (String) param.get("ret_flag");
+        if ("1001".equals(ret_flag)) {
+            throw new ThdfhclNotFoundException (errCode_3, worknumber+"不能查询其他门店提货单");
+        }
+        beyList = (List<JcXsdbillEntity>) param.get("thRc");
 
         if (beyList == null) {
             logger.error("当前无退货记录");
@@ -147,7 +147,6 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
             throw new ThdfhclNotFoundException (errCode_3,ret_msg);
         }
         logger.info("提货单："+jcthDto.getXsdno()+ret_msg);
-
         return param;
     }
 }

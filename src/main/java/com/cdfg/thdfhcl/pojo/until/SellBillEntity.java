@@ -41,6 +41,14 @@ public class SellBillEntity {
         this.market = market;
     }
 
+    public String getShstr2() {
+        return shstr2;
+    }
+
+    public void setShstr2(String shstr2) {
+        this.shstr2 = shstr2;
+    }
+
     private String billNo="";
 
     private String status="";
@@ -50,4 +58,6 @@ public class SellBillEntity {
     private String ldrq="";
 
     private String market="";
+
+    private String shstr2="";
 }
