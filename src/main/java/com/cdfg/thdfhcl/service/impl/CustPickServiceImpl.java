@@ -86,6 +86,14 @@ public class CustPickServiceImpl implements CustPickService {
         String old_flightNum = mfDto.getOld_flightNum();
         String old_flightTime = mfDto.getOld_flightTime();
         List<SellBillEntity> thdlist = mfDto.getSellhead();
+        if (thdlist == null) {
+            logger.info("输入的订单信息集合为空");
+            throw new ThdfhclNotFoundException(errCode_39,errMsg_39);
+        }
+        if (cardid == null) {
+            logger.info("输入的证件号为空");
+            throw new ThdfhclNotFoundException(errCode_37,errMsg_37);
+        }
         logger.info("取到顾客提货-航班修改接口传入的证件号"+cardid+"原航班："+old_flightNum+
                 "原离岛时间："+old_flightTime+"现航班："+new_flightNum+"现离岛时间："+new_flightTime);
 
@@ -117,7 +125,6 @@ public class CustPickServiceImpl implements CustPickService {
             //查询修改航班后的航班和提货单信息
             Map parammap = new HashMap<String, String>();
             List<SellBillEntity> sbelist;
-
             logger.info("取到顾客提货-提货单查询接口传入的证件号"+cardid);
             try {
                 parammap.put("cardId",cardid);
@@ -166,6 +173,18 @@ public class CustPickServiceImpl implements CustPickService {
         String xsdno = bpDto.getBillNo();
         String djp = bpDto.getTicketCode();
         String cardid = bpDto.getCardId();
+        if (xsdno == null) {
+            logger.info("输入的销售单号为空");
+            throw new ThdfhclNotFoundException(errCode_35,errMsg_35);
+        }
+        if (djp == null) {
+            logger.info("输入的登记牌为空");
+            throw new ThdfhclNotFoundException(errCode_36,errMsg_36);
+        }
+        if (cardid == null) {
+            logger.info("输入的证件号为空");
+            throw new ThdfhclNotFoundException(errCode_37,errMsg_37);
+        }
         logger.info("取到顾客提货-扫描身份证接口传入的证件号"+cardid+"登机牌："+djp+
                 "销售单号："+xsdno);
         String flightNo;
@@ -175,7 +194,7 @@ public class CustPickServiceImpl implements CustPickService {
             flightNo = djpStr.substring(0,6);//取出第一第六位
             ldrq = djpStr.substring(6,8);//取出第七第八位
             logger.info("顾客"+cardid+"离岛日期登机牌"+djpStr+"航班号："+flightNo);
-        }else if (djpStr.length() ==6) {
+        }else if (djpStr.length() == 6) {
             flightNo = djpStr;
             ldrq = "";
             logger.info("顾客"+cardid+"离岛日期登机牌"+djpStr+"航班号："+flightNo);
@@ -222,6 +241,19 @@ public class CustPickServiceImpl implements CustPickService {
         String ticketcode = cpDto.getTicketCode();
         List<SellBillEntity> billnolist = cpDto.getSellhead();
         String ticketCode = cpDto.getTicketCode();
+        if (ticketcode == null) {
+            logger.info("输入的登机牌为空");
+            throw new ThdfhclNotFoundException(errCode_38,errMsg_38);
+        }
+        if (billnolist == null) {
+            logger.info("输入的订单信息集合为空");
+            throw new ThdfhclNotFoundException(errCode_39,errMsg_39);
+        }
+        if (cardid == null) {
+            logger.info("输入的证件号为空");
+            throw new ThdfhclNotFoundException(errCode_37,errMsg_37);
+        }
+
         logger.info("取到顾客提货-航班修改接口传入的证件号"+cardid+"登机牌："+ticketcode);
         for (int i = 0; i < billnolist.size(); i++) {
             SellBillEntity sbEntity = billnolist.get(i);

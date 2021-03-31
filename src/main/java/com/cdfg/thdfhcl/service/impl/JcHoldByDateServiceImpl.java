@@ -38,18 +38,17 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
         List<JcXsdbillEntity> beyList;
         try {
             hbdDao.qryCheckBill(param);
-            //取出结果集
-            String ret_flag = (String) param.get("ret_flag");
-            if ("1001".equals(ret_flag)) {
-                throw new ThdfhclNotFoundException (errCode_3, worknumber+"不能查询其他门店提货单");
-            }
-            beyList = (List<JcXsdbillEntity>) param.get("zcRc");
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
+//            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
             throw new ThdfhclNotFoundException (errCode_3, errMsg_3);
         }
-
+        //取出结果集
+        String ret_flag = (String) param.get("ret_flag");
+        if ("1001".equals(ret_flag)) {
+            throw new ThdfhclNotFoundException (errCode_3, worknumber+"不能查询其他门店提货单");
+        }
+        beyList = (List<JcXsdbillEntity>) param.get("zcRc");
         for (int i = 0; i <beyList.size() ; i++) {
             JcXsdbillEntity jxEntity = new JcXsdbillEntity();
             logger.info("取到寄存提货单查询返回值"+jxEntity.getIsth()+jxEntity.getMarket()
@@ -73,7 +72,7 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
         try {
             hbdDao.insertDts(param);
         } catch (Exception e) {
-            logger.error("邮寄日期暂存写入异常");
+            logger.error("寄存日期暂存写入异常");
             throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
         }
         String tmpCode = (String) param.get("o_TmpCode");

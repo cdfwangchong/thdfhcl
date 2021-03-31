@@ -5,6 +5,7 @@ import com.cdfg.thdfhcl.pojo.dto.JcHoldByDateDto;
 import com.cdfg.thdfhcl.pojo.dto.JcThDto;
 import com.cdfg.thdfhcl.pojo.until.JcXsdbillEntity;
 import com.cdfg.thdfhcl.pojo.until.Result;
+import com.cdfg.thdfhcl.pojo.until.Token;
 import com.cdfg.thdfhcl.service.JcHoldByDateService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class JcHoldByDateController {
     @ResponseBody
     public Result<List<JcXsdbillEntity>> qryCheckBill(@RequestBody JcHoldByDateDto hbdDto, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+        String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
         logger.info("获取到暂存提货单查询接口的工号："+worknumber);
         return new Result<List<JcXsdbillEntity>>(sucCode,sucMsg,hbdService.qryCheckBill(hbdDto,worknumber));
     }
@@ -50,8 +51,8 @@ public class JcHoldByDateController {
     @ResponseBody
     public Result<String> insertDts(@RequestBody JcHoldByDateDto hbdDto, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+        String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
 
         String ctpCode = hbdService.insertDts(hbdDto,worknumber);
         return new Result<String>(sucCode,sucMsg,ctpCode);
@@ -64,8 +65,8 @@ public class JcHoldByDateController {
     @ResponseBody
     public Result<List<JcXsdbillEntity>> qryJcThBill(@RequestBody JcHoldByDateDto hbdDto, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-//        String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+        String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
 
         List<JcXsdbillEntity> JcThlist = hbdService.qryJcThBill(hbdDto,worknumber);
         return new Result<List<JcXsdbillEntity>>(sucCode,sucMsg,JcThlist);
@@ -79,8 +80,8 @@ public class JcHoldByDateController {
     @ResponseBody
     public Result<String> updateJcTh(@RequestBody JcThDto jcthDto, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
-//      String worknumber = new Token().CheckToken(token);
-        String worknumber = "3859";
+      String worknumber = new Token().CheckToken(token);
+//        String worknumber = "3859";
         Map retmap = hbdService.updateJcTh(jcthDto,worknumber);
         String flag = (String) retmap.get("ret_flag");
         int ret_flag = Integer.parseInt(flag);

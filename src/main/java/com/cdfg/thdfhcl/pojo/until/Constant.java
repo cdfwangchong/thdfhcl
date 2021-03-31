@@ -109,6 +109,21 @@ public final class Constant {
 
     public static int errCode_34 = 5012;
     public static String errMsg_34 = "获取参数字典文件异常";
+
+    public static int errCode_35 = 5013;
+    public static String errMsg_35 = "输入的销售单号为空";
+
+    public static int errCode_36 = 5014;
+    public static String errMsg_36 = "输入的登记牌为空";
+
+    public static int errCode_37 = 5014;
+    public static String errMsg_37 = "输入的证件号为空";
+
+    public static int errCode_38 = 5015;
+    public static String errMsg_38 = "输入的登机牌为空";
+
+    public static int errCode_39 = 5016;
+    public static String errMsg_39 = "输入的订单信息集合为空";
     //设置加密秘钥
     public static final String key = "cdfgsanyamark@6868";
 

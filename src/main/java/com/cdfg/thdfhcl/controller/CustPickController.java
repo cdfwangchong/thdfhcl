@@ -7,7 +7,6 @@ import com.cdfg.thdfhcl.service.CustPickService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 
 import java.util.HashMap;
@@ -40,8 +39,8 @@ public class CustPickController {
         if (ciDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-//        String token = request.getHeader("Authorization");
-//        new Token().CheckToken(token);
+        String token = request.getHeader("Authorization");
+        new Token().CheckToken(token);
 
         CustBillEntity cbEntity = cpService.qryCustPickInfo(ciDto.getCardId());
         if (cbEntity == null) {
@@ -110,7 +109,7 @@ public class CustPickController {
         String billnos = null;
         List<SellBillEntity>sbelist =  cpDto.getSellhead();
         for (SellBillEntity sbentity:sbelist) {
-            if (sbentity == null) {
+            if (billnos == null) {
                 billnos = sbentity.getBillNo();
             }else
             {
