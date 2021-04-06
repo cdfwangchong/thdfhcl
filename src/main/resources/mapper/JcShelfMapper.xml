@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cdfg.thdfhcl.dao.JcShelfDao">
+
+    <select id="insertShelf" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_thdfhcl.insert_shelf
+        (#{xsdno,mode=IN,jdbcType=VARCHAR},
+        #{shelfno,mode=IN,jdbcType=VARCHAR},
+        #{flag,mode=IN,jdbcType=DATE},
+        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR},
+        #{ret_msg,mode=OUT,jdbcType=VARCHAR}
+        )}
+  </select>
+
+    <select id="qrySxdno" statementType="CALLABLE" resultType="java.util.Map">
+    {CALL if_thdfhcl.qry_jcxsdno
+        (#{billNo,mode=IN,jdbcType=VARCHAR},
+        #{xsdno,mode=OUT,jdbcType=VARCHAR},
+        #{status,mode=OUT,jdbcType=VARCHAR},
+        #{yysj,mode=OUT,jdbcType=DATE},
+        #{qhdd,mode=OUT,jdbcType=VARCHAR},
+        #{oname,mode=OUT,jdbcType=VARCHAR},
+        #{cardid,mode=OUT,jdbcType=VARCHAR},
+        #{ret_flag,mode=OUT,jdbcType=VARCHAR},
+        #{ret_msg,mode=OUT,jdbcType=VARCHAR}
+        )}
+    </select>
+
+</mapper>
