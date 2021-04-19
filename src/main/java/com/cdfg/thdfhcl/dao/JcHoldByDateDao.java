@@ -14,4 +14,6 @@ public interface JcHoldByDateDao {
 
     Map updateJcTh(Map param);
 
+    Map qryJcyyInfo(Map param);
+
 }

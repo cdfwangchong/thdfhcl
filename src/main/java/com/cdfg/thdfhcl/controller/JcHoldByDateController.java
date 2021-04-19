@@ -1,5 +1,6 @@
 package com.cdfg.thdfhcl.controller;
 
+import cn.cdfg.exceptionHandle.ThdfhclNotFoundException;
 import com.cdfg.thdfhcl.pojo.dto.JcHoldByDateDto;
 import com.cdfg.thdfhcl.pojo.dto.JcThDto;
 import com.cdfg.thdfhcl.pojo.until.JcXsdbillEntity;
@@ -14,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
-import static com.cdfg.thdfhcl.pojo.until.Constant.sucCode;
-import static com.cdfg.thdfhcl.pojo.until.Constant.sucMsg;
+import static com.cdfg.thdfhcl.pojo.until.Constant.*;
+import static com.cdfg.thdfhcl.pojo.until.Constant.errMsg_3;
 
 
 /**
@@ -86,5 +87,23 @@ public class JcHoldByDateController {
         int ret_flag = Integer.parseInt(flag);
         String ret_msg = (String) retmap.get("ret_msg");
         return new Result<String>(ret_flag,ret_msg,"");
+    }
+
+    /**
+     * 返岛日期暂存，唔需要先查询出后复核
+     * @return
+     */
+    @PostMapping("/qryJcyyInfo")
+    @ResponseBody
+    public Result<List<JcXsdbillEntity>> qryJcyyInfo(@RequestBody JcHoldByDateDto hbdDto, HttpServletRequest request) {
+//        String token = request.getHeader("Authorization");
+//        String worknumber = new Token().CheckToken(token);
+        String worknumber = "3859";
+        List<JcXsdbillEntity> jxlist = hbdService.qryJcyyInfo(hbdDto,worknumber);
+        if (jxlist.size() == 0) {
+            return new Result<List<JcXsdbillEntity>>(sucCode,sucMsg,jxlist);
+        }else {
+            throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
+        }
     }
 }

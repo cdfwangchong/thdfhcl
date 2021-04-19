@@ -53,6 +53,7 @@
         #{ljtime,mode=OUT,jdbcType=VARCHAR},
         #{isth,mode=OUT,jdbcType=VARCHAR},
         #{isjj,mode=OUT,jdbcType=VARCHAR},
+        #{thfs,mode=OUT,jdbcType=VARCHAR},
         #{ret_flag,mode=OUT,jdbcType=VARCHAR},
         #{ret_msg,mode=OUT,jdbcType=VARCHAR}
         )}

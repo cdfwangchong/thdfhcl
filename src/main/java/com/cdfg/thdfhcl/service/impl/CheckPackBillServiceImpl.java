@@ -65,7 +65,6 @@ public class CheckPackBillServiceImpl implements CheckPackBillService {
         try {
             result = cpbDao.insert(cpbDtoList);
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("机场到货验收单数据写入异常");
             throw new ThdfhclNotFoundException(errCode_6,errMsg_6);
         }

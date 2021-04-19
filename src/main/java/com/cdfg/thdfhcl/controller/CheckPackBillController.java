@@ -42,8 +42,8 @@ public class CheckPackBillController {
         }
         String token = request.getHeader("Authorization");
         String worknumber = new Token().CheckToken(token);
+//        String worknumber ="3859";
         cbpservice.insert(packbillitem,worknumber);
-
         return new Result<String>(sucCode,sucMsg,"");
     }
 }

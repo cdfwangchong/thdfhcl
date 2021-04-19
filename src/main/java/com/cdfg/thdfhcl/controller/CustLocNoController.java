@@ -39,8 +39,9 @@ public class CustLocNoController {
             logger.error("获取到的对象值为空");
             throw new ThdfhclNotFoundException(errCode_5,errMsg_5);
         }
-        String token = request.getHeader("Authorization");
-        String worknumber = new Token().CheckToken(token);
+//        String token = request.getHeader("Authorization");
+//        String worknumber = new Token().CheckToken(token);
+        String worknumber = "3859";
 
         boolean bool = custLocService.InsertCustLocNO(clnDto,worknumber);
         if (bool) {

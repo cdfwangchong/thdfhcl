@@ -153,45 +153,40 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         if (billDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-        String billNO = billDto.getBillNO();
+        String billNo = billDto.getBillNO();
         Map param = new HashMap();
-        param.put("billNO",billNO);
-        logger.info("查询暂存时段条件接口的输入结果的：" +billNO);
-
+        param.put("billNO",billNo);
+        logger.info("查询暂存时段条件接口的输入结果的：" +billNo);
         try {
             fjchbdDao.qryZcsd(param);
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("提货单"+billNO+"查询暂存时段条件存储过程返回异常");
-            throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNO+errMsg_31);
+            logger.error("提货单"+billNo+"查询暂存时段条件存储过程返回异常");
+            throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNo+errMsg_31);
         }
         String ret_flag = (String) param.get("ret_flag");
         logger.info("取到查询暂存时段条件返回标志："+ret_flag);
         if (ret_flag.isEmpty()) {
-            logger.info("提货单："+billNO+"查询暂存时段条件，返回标志为空");
-            throw new ThdfhclNotFoundException(errCode_19, errMsg_8+billNO+errMsg_14);
+            logger.info("提货单："+billNo+"查询暂存时段条件，返回标志为空");
+            throw new ThdfhclNotFoundException(errCode_19, errMsg_8+billNo+errMsg_14);
         }
-
         if ("3006".equals(ret_flag)) {
-            logger.info("提货单："+billNO+"不存在");
-            throw new ThdfhclNotFoundException(errCode_13, errMsg_8+billNO+errMsg_13);
+            logger.info("提货单："+billNo+"不存在");
+            throw new ThdfhclNotFoundException(errCode_13, errMsg_8+billNo+errMsg_13);
         }
         if ("3003".equals(ret_flag)) {
-            logger.info("提货单："+billNO+"已退货");
-            throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNO+errMsg_10);
+            logger.info("提货单："+billNo+"已退货");
+            throw new ThdfhclNotFoundException(errCode_18, errMsg_8+billNo+errMsg_10);
         }
         if ("3004".equals(ret_flag)) {
-            logger.info("提货单："+billNO+"暂存状态不正确");
-            throw new ThdfhclNotFoundException(errCode_21, errMsg_8+billNO+errMsg_21);
+            logger.info("提货单："+billNo+"暂存状态不正确");
+            throw new ThdfhclNotFoundException(errCode_21, errMsg_8+billNo+errMsg_21);
         }
-
         String mark = (String) param.get("mark");
         String zcrq = (String) param.get("zcrq");
         String zcsdid = (String) param.get("zcsdid");
         String zcsdname = (String) param.get("zcsdname");
         String thdd = (String) param.get("thdd");
         String xsdno = (String) param.get("xsdno");
-
         Map retMap = new HashMap();
         retMap.put("xsdno",xsdno);
         retMap.put("market",mark);
@@ -200,7 +195,6 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         retMap.put("thdd",thdd);
         retMap.put("zcsdname",zcsdname);
         logger.info("查询暂存时段条件返回值："+xsdno+mark+zcrq+zcsdid+thdd+zcsdname);
-
         return retMap;
     }
 
@@ -209,50 +203,48 @@ public class FjcHoldByDateServiceImpl implements FjcHoldByDateService {
         if (thdfjglDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-        String billNO = thdfjglDto.getBillNO();
+        String billNo = thdfjglDto.getBillNO();
         String mark = thdfjglDto.getMarket();
         Map param = new HashMap();
-        param.put("billNO",billNO);
+        param.put("billNO",billNo);
         param.put("mark",mark);
         param.put("operator",worknumber);
-        logger.info("提货单分拣管理接口输入的结果：" +billNO);
-
+        logger.info("提货单分拣管理接口输入的结果：" +billNo);
         try {
             fjchbdDao.thdfjgl(param);
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
-            logger.error("提货单"+billNO+"执行提货单分拣管理存储过程返回异常");
-            throw new ThdfhclNotFoundException(errCode_32, errMsg_8+billNO+errMsg_32);
+            logger.error("提货单"+billNo+"执行提货单分拣管理存储过程返回异常");
+            throw new ThdfhclNotFoundException(errCode_32, errMsg_8+billNo+errMsg_32);
         }
 
         String ret_flag = (String) param.get("ret_flag");
         String ret_msg = (String) param.get("ret_msg");
         if (ret_flag.isEmpty()) {
-            logger.info("提货单："+billNO+"，返回标志为空");
-            throw new ThdfhclNotFoundException(errCode_33, errMsg_8+billNO+errMsg_33);
+            logger.info("提货单："+billNo+"，返回标志为空");
+            throw new ThdfhclNotFoundException(errCode_33, errMsg_8+billNo+errMsg_33);
         }
-
-        if ("3005".equals(ret_flag)) {
-            logger.info("提货单："+billNO+""+ret_msg);
+        if (!"1002".equals(ret_flag)) {
+            logger.info("提货单："+billNo+""+ret_msg);
             throw new ThdfhclNotFoundException(Integer.parseInt(ret_flag),ret_msg);
         }
-
         String status = (String) param.get("status");
         String ldrq = (String) param.get("ljtime");
         String isth = (String) param.get("isth");
         String isjj = (String) param.get("isjj");
         String thdd = (String) param.get("thdd");
+        String thfs = (String) param.get("thfs");
         Map retMap = new HashMap();
-        retMap.put("billNO",billNO);
+        retMap.put("billNO",billNo);
         retMap.put("status",status);
         retMap.put("ldrq",ldrq);
         retMap.put("isth",isth);
         retMap.put("isjj",isjj);
         retMap.put("thdd",thdd);
+        retMap.put("thfs",thfs);//2021/4/12初扫加入邮寄和返岛提示
         retMap.put("ret_flag",ret_flag);
         retMap.put("ret_msg",ret_msg);
 
-        logger.info("提货单分拣管理存储过程返回值："+billNO+status+ldrq+isth+thdd+isjj);
+        logger.info("提货单分拣管理存储过程返回值："+billNo+status+ldrq+isth+thdd+isjj);
         return retMap;
     }
 }

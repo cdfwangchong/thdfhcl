@@ -35,8 +35,6 @@ public class HoldByDateServiceImpl implements HoldByDateService {
         try {
             shEntity = hbdDao.qryCheckBill(billNO);
         } catch (Exception e) {
-//            e.printStackTrace();
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
             throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
         }
@@ -98,7 +96,6 @@ public class HoldByDateServiceImpl implements HoldByDateService {
         try {
             hbdDao.insertDts(param);
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("邮寄日期暂存写入异常");
             throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
         }

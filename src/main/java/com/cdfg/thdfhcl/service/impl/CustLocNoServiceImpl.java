@@ -57,7 +57,6 @@ public class CustLocNoServiceImpl implements CustLocNoService {
             }
             result = custlocnoDao.insert(clnDtoList);
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("上架数据写入异常");
             throw new ThdfhclNotFoundException(errCode_6,errMsg_6);
         }
@@ -65,7 +64,6 @@ public class CustLocNoServiceImpl implements CustLocNoService {
         if (result != shelfnoArr.length) {
             throw new ThdfhclNotFoundException(errCode_6,errMsg_6);
         }
-
         logger.info("正常写入表中"+shelfnoStr+"@"+custpass+"@"+opertime+"@"+thdd);
         return true;
     }
@@ -107,7 +105,6 @@ public class CustLocNoServiceImpl implements CustLocNoService {
                     "@"+shfhbillno+"@"+sl);
 
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
             throw new ThdfhclNotFoundException(errCode_3,errMsg_3);
         }

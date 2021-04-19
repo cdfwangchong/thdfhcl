@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,50 +26,49 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
     Logger logger = Logger.getLogger(JcHoldByDateServiceImpl.class);
 
     @Override
-    public List<JcXsdbillEntity> qryCheckBill(JcHoldByDateDto hbdDto,String worknumber) {
+    public List<JcXsdbillEntity> qryCheckBill(JcHoldByDateDto hbdDto, String worknumber) {
         if (hbdDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
         Map param = new HashMap();
-        param.put("yysj",hbdDto.getYysj());
-        param.put("market",hbdDto.getMarket());
-        param.put("qhdd",hbdDto.getQhdd());
-        param.put("zctype",hbdDto.getZctype());
-        param.put("operator",worknumber);
+        param.put("yysj", hbdDto.getYysj());
+        param.put("market", hbdDto.getMarket());
+        param.put("qhdd", hbdDto.getQhdd());
+        param.put("zctype", hbdDto.getZctype());
+        param.put("operator", worknumber);
         List<JcXsdbillEntity> beyList;
         try {
             hbdDao.qryCheckBill(param);
         } catch (Exception e) {
-//            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
-            throw new ThdfhclNotFoundException (errCode_3, errMsg_3);
+            throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
         }
         //取出结果集
         String ret_flag = (String) param.get("ret_flag");
         if ("1001".equals(ret_flag)) {
-            throw new ThdfhclNotFoundException (errCode_3, worknumber+"不能查询其他门店提货单");
+            throw new ThdfhclNotFoundException(errCode_3, worknumber + "不能查询其他门店提货单");
         }
         beyList = (List<JcXsdbillEntity>) param.get("zcRc");
-        for (int i = 0; i <beyList.size() ; i++) {
+        for (int i = 0; i < beyList.size(); i++) {
             JcXsdbillEntity jxEntity = new JcXsdbillEntity();
-            logger.info("取到寄存提货单查询返回值"+jxEntity.getIsth()+jxEntity.getMarket()
-            +jxEntity.getQhdd()+jxEntity.getYysj()+jxEntity.getXsdno());
+            logger.info("取到寄存提货单查询返回值" + jxEntity.getIsth() + jxEntity.getMarket()
+                    + jxEntity.getQhdd() + jxEntity.getYysj() + jxEntity.getXsdno());
         }
         return beyList;
     }
 
     @Override
-    public String insertDts(JcHoldByDateDto hbdDto,String worknumber) {
+    public String insertDts(JcHoldByDateDto hbdDto, String worknumber) {
         if (hbdDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
-        Map param  = new HashMap<String,String>();
-        param.put("operator",worknumber);
-        param.put("billNO",hbdDto.getXsdno());
-        param.put("market",hbdDto.getMarket());
-        param.put("yysj",hbdDto.getYysj());
-        param.put("qhdd",hbdDto.getQhdd());
-        param.put("tmpCode",hbdDto.getTmpCode());
+        Map param = new HashMap<String, String>();
+        param.put("operator", worknumber);
+        param.put("billNO", hbdDto.getXsdno());
+        param.put("market", hbdDto.getMarket());
+        param.put("yysj", hbdDto.getYysj());
+        param.put("qhdd", hbdDto.getQhdd());
+        param.put("tmpCode", hbdDto.getTmpCode());
         try {
             hbdDao.insertDts(param);
         } catch (Exception e) {
@@ -82,7 +82,7 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
         if (tmpCode == "") {
             logger.error("寄存日期暂存写入异常");
             throw new ThdfhclNotFoundException(errCode, errMsg);
-        }else {
+        } else {
             return tmpCode;
         }
     }
@@ -93,31 +93,30 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
         Map param = new HashMap();
-        param.put("market",hbdDto.getMarket());
-        param.put("operator",worknumber);
+        param.put("market", hbdDto.getMarket());
+        param.put("operator", worknumber);
         List<JcXsdbillEntity> beyList;
         try {
             hbdDao.qryJcThBill(param);
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
-            throw new ThdfhclNotFoundException (errCode_3, errMsg_3);
+            throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
         }
         //取出结果集
         String ret_flag = (String) param.get("ret_flag");
         if ("1001".equals(ret_flag)) {
-            throw new ThdfhclNotFoundException (errCode_3, worknumber+"不能查询其他门店提货单");
+            throw new ThdfhclNotFoundException(errCode_3, worknumber + "不能查询其他门店提货单");
         }
         beyList = (List<JcXsdbillEntity>) param.get("thRc");
 
         if (beyList == null) {
             logger.error("当前无退货记录");
-            throw new ThdfhclNotFoundException (errCode_5, "当前无退货记录");
+            throw new ThdfhclNotFoundException(errCode_5, "当前无退货记录");
         }
-        for (int i = 0; i <beyList.size() ; i++) {
+        for (int i = 0; i < beyList.size(); i++) {
             JcXsdbillEntity jxEntity = new JcXsdbillEntity();
-            logger.info("取到寄存提货单查询返回值"+jxEntity.getIsth()+jxEntity.getMarket()
-                    +jxEntity.getQhdd()+jxEntity.getYysj()+jxEntity.getXsdno());
+            logger.info("取到寄存提货单查询返回值" + jxEntity.getIsth() + jxEntity.getMarket()
+                    + jxEntity.getQhdd() + jxEntity.getYysj() + jxEntity.getXsdno());
         }
         return beyList;
     }
@@ -128,24 +127,61 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
         Map param = new HashMap();
-        param.put("xsdno",jcthDto.getXsdno());
-        param.put("operator",worknumber);
-        param.put("market",jcthDto.getMarket());
+        param.put("xsdno", jcthDto.getXsdno());
+        param.put("operator", worknumber);
+        param.put("market", jcthDto.getMarket());
         try {
             hbdDao.updateJcTh(param);
         } catch (Exception e) {
-            logger.error(new ExceptionPrintMessage().errorTrackSpace(e));
             logger.error("表数据查询返回值异常");
-            throw new ThdfhclNotFoundException (errCode_3, errMsg_3);
+            throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
         }
         //取出结果集
         String ret_flag = (String) param.get("ret_flag");
         String ret_msg = (String) param.get("ret_msg");
         if (!"1002".equals(ret_flag)) {
             logger.info(ret_msg);
-            throw new ThdfhclNotFoundException (errCode_3,ret_msg);
+            throw new ThdfhclNotFoundException(errCode_3, ret_msg);
         }
-        logger.info("提货单："+jcthDto.getXsdno()+ret_msg);
+        logger.info("提货单：" + jcthDto.getXsdno() + ret_msg);
         return param;
+    }
+
+    @Override
+    public List<JcXsdbillEntity> qryJcyyInfo(JcHoldByDateDto hbdDto, String worknumber) {
+        if (hbdDto == null) {
+            throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
+        }
+        Map param = new HashMap();
+        Date yysj = hbdDto.getYysj();
+        String market = hbdDto.getMarket();
+        String qhdd = hbdDto.getQhdd();
+        String xsdno = hbdDto.getXsdno();
+
+        param.put("yysj", yysj);
+        param.put("market", market);
+        param.put("qhdd", qhdd);
+        param.put("xsdno", xsdno);
+        logger.info("取到返岛取货暂存的提货单"+xsdno+"地点"+qhdd+"预约时间"+yysj+"门店"+market);
+        List<JcXsdbillEntity> beyList;
+        try {
+            hbdDao.qryCheckBill(param);
+        } catch (Exception e) {
+            logger.error("表数据查询返回值异常");
+            throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
+        }
+        //取出结果集
+        String ret_flag = (String) param.get("ret_flag");
+        String ret_msg = (String) param.get("ret_msg");
+        if (!"1001".equals(ret_flag)) {
+            throw new ThdfhclNotFoundException(errCode_3,ret_msg);
+        }
+        beyList = (List<JcXsdbillEntity>) param.get("zcRc");
+        for (int i = 0; i < beyList.size(); i++) {
+            JcXsdbillEntity jxEntity = new JcXsdbillEntity();
+            logger.info("取到返岛提货单查询返回值" + jxEntity.getIsth() + jxEntity.getMarket()
+                    + jxEntity.getQhdd() + jxEntity.getYysj() + jxEntity.getXsdno());
+        }
+        return beyList;
     }
 }
