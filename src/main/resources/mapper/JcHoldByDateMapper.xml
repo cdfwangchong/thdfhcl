@@ -60,13 +60,13 @@
   </select>
 
   <select id="qryJcyyInfo" statementType="CALLABLE" resultType="java.util.Map">
-    {CALL if_deptinfo.qry_zcxsd
+    {CALL if_deptinfo.qry_jcyyinfo
         (#{yysj,mode=IN,jdbcType=DATE},
         #{market,mode=IN,jdbcType=VARCHAR},
         #{qhdd,mode=IN,jdbcType=VARCHAR},
-        #{zctype,mode=IN,jdbcType=VARCHAR},
-        #{operator,mode=IN,jdbcType=VARCHAR},
+        #{xsdno,mode=IN,jdbcType=VARCHAR},
         #{ret_flag,mode=OUT,jdbcType=VARCHAR},
+        #{ret_msg,mode=OUT,jdbcType=VARCHAR},
         #{zcRc,mode=OUT,jdbcType=CURSOR,javaType=java.sql.ResultSet,resultMap=JcXsdbillEntity}
         )}
   </select>

@@ -165,16 +165,16 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
         logger.info("取到返岛取货暂存的提货单"+xsdno+"地点"+qhdd+"预约时间"+yysj+"门店"+market);
         List<JcXsdbillEntity> beyList;
         try {
-            hbdDao.qryCheckBill(param);
+            hbdDao.qryJcyyInfo(param);
         } catch (Exception e) {
             logger.error("表数据查询返回值异常");
-            throw new ThdfhclNotFoundException(errCode_3, errMsg_3);
+            throw new ThdfhclNotFoundException(errCode, errMsg_3);
         }
         //取出结果集
         String ret_flag = (String) param.get("ret_flag");
         String ret_msg = (String) param.get("ret_msg");
-        if (!"1001".equals(ret_flag)) {
-            throw new ThdfhclNotFoundException(errCode_3,ret_msg);
+        if (!"1002".equals(ret_flag)) {
+            throw new ThdfhclNotFoundException(errCode,ret_msg);
         }
         beyList = (List<JcXsdbillEntity>) param.get("zcRc");
         for (int i = 0; i < beyList.size(); i++) {
