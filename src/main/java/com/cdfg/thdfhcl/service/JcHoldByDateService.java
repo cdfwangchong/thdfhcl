@@ -17,5 +17,5 @@ public interface JcHoldByDateService {
 
     Map updateJcTh(JcThDto jcthDto, String worknumber);
 
-    List<JcXsdbillEntity> qryJcyyInfo(JcHoldByDateDto jcthDto, String worknumber);
+    JcXsdbillEntity qryJcyyInfo(JcHoldByDateDto jcthDto, String worknumber);
 }

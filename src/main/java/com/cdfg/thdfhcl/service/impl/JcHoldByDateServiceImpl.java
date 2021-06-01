@@ -148,7 +148,7 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
     }
 
     @Override
-    public List<JcXsdbillEntity> qryJcyyInfo(JcHoldByDateDto hbdDto, String worknumber) {
+    public JcXsdbillEntity qryJcyyInfo(JcHoldByDateDto hbdDto, String worknumber) {
         if (hbdDto == null) {
             throw new ThdfhclNotFoundException(errCode_5, errMsg_5);
         }
@@ -177,11 +177,15 @@ public class JcHoldByDateServiceImpl implements JcHoldByDateService {
             throw new ThdfhclNotFoundException(errCode,ret_msg);
         }
         beyList = (List<JcXsdbillEntity>) param.get("zcRc");
-        for (int i = 0; i < beyList.size(); i++) {
-            JcXsdbillEntity jxEntity = new JcXsdbillEntity();
+        JcXsdbillEntity jxEntity = null;
+        if (beyList.size()>1) {
+            logger.error("提货单"+xsdno+"存在多条记录");
+            throw new ThdfhclNotFoundException(errCode,ret_msg);
+        }else {
+            jxEntity = beyList.get(0);
             logger.info("取到返岛提货单查询返回值" + jxEntity.getIsth() + jxEntity.getMarket()
                     + jxEntity.getQhdd() + jxEntity.getYysj() + jxEntity.getXsdno());
         }
-        return beyList;
+        return jxEntity;
     }
 }
