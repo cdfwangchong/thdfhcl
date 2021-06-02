@@ -95,16 +95,16 @@ public class JcHoldByDateController {
      */
     @PostMapping("/qryJcyyInfo")
     @ResponseBody
-    public Result<List<JcXsdbillEntity>> qryJcyyInfo(@RequestBody JcHoldByDateDto hbdDto, HttpServletRequest request) {
+    public Result<JcXsdbillEntity> qryJcyyInfo(@RequestBody JcHoldByDateDto hbdDto, HttpServletRequest request) {
         String token = request.getHeader("Authorization");
         String worknumber = new Token().CheckToken(token);
 //        String worknumber = "3859";
-        List<JcXsdbillEntity> jxlist = hbdService.qryJcyyInfo(hbdDto,worknumber);
-        if (jxlist.size() == 0) {
+        JcXsdbillEntity jxlist = hbdService.qryJcyyInfo(hbdDto,worknumber);
+        if (jxlist == null) {
             throw new ThdfhclNotFoundException(errCode, errMsg_3);
 
         }else {
-            return new Result<List<JcXsdbillEntity>>(sucCode,sucMsg,jxlist);
+            return new Result<JcXsdbillEntity>(sucCode,sucMsg,jxlist);
         }
     }
 }
